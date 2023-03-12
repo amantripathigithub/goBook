@@ -10,6 +10,8 @@ require('./db/connection');
 
 //app.use(require('./router/auth'));
 const User = require('./model/user');
+// for hotel schema
+const Hotel = require('./model/hotel');
 
 const bodyParser = require("body-parser");
 
@@ -74,17 +76,14 @@ app.post("/", async function(req, res){
           if (result) {
            res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
           } else {
-            // popup.alert({
-            //     content: 'Hello!'
-            // });     
-            //alert("nikal");    
+           // if password not match
+           return res.json({error: "invalid details !!"});
          }
         } else {
 
-            // popup.alert({
-            //     content: 'Hello!'
-            // });
-            //alert("nikal");    
+            // if user email is not exist
+            res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
+
         }
       } catch (error) {
         res.status(400).json({ error });
@@ -135,11 +134,96 @@ app.post('/signup',(req,res)=>{
 
     }).catch(err => {console.log(err); });
 
+    //console.log(req.body);
+    //res.json({message:req.body});
+});
+
+
+
+
+// for hotal signup page
+
+
+app.get("/signuphotel", (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/signuphotel.html"));
+});
+
+
+
+
+app.post('/signuphotel',(req,res)=>{
+    const email=req.body.email;
+    const password=req.body.password;
+    const cpassword=req.body.cpassword;
+    const name=req.body.name;
+    const  price=req.body.price;
+    const  city=req.body.city;
+    const address=req.body.address;
+    const  contact=req.body.contact;
+
+   
+    if(password!=cpassword){
+        
+        return res.json({error: "password not match!!"});
+    }
+    
+    // checking for correct number
+
+    con=String(contact);
+    if(con.length!=10)
+        return res.json({error: "not a valid number!!"});
+    
+
+
+    Hotel.findOne({email:email,password:password})
+    .then((userExist)=>{
+        if(userExist)
+        return res.status(422).json({ error :"email exists already"});
+        
+        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact});
+
+        hotel.save().then(() => {
+            res.status(201).json({message: "registered !! "});
+        }).catch((err) => res.status(500).json({error: "failed to register !! "}));
+
+
+    }).catch(err => {console.log(err); });
 
     //console.log(req.body);
     //res.json({message:req.body});
 });
 
+
+
+app.get("/signinhotel", (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/signinhotel.html"));
+});
+
+
+app.post("/signinhotel", async function(req, res){
+    try {
+        // check if the user exists
+        const hotel = await Hotel.findOne({ email: req.body.email });
+        if (hotel) {
+          //check if password matches
+         // console.log("mil gya");
+          const result = req.body.psw === hotel.password;
+          if (result) {
+           res.sendFile(path.join(__dirname,"../frontend", "/homehotel.html"));
+          } else {
+            return res.status(422).json({ error :"email password does not match !!!!"});
+         }
+        } else {
+
+           // hotel register hi ni to go to register page
+          return res.sendFile(path.join(__dirname,"../frontend", "/signuphotel.html"));
+        }
+      } catch (error) {
+        res.status(400).json({ error });
+      }
+});
 
 
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="signup.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignupHotel</title>
+</head>
+<body>
+    <form action="/signuphotel" method = "post" style="border:1px solid #ccc">
+        <div class="container">
+          <h1>Register your Hotel with Us to Grow More :)</h1>
+          <p>Please fill in this form to get registered.</p>
+          <hr>
+      
+          <label for="email"><b>Email</b></label>
+          <input type="text" id="p" placeholder="Enter Email" name="email" required>
+      
+          <label for="password"><b>Password</b></label>
+          <input type="password" id="cp" placeholder="Enter Password" name="password" required>
+      
+          <label for="cpassword"><b>Confirm Password</b></label>
+          <input type="password" placeholder="Confirm Password" name="cpassword" required>
+            
+          <label for="name"><b>Name</b></label>
+          <input type="text" id="name" placeholder="Enter Name of Hotel" name="name" required>
+
+          <label for="price"><b>Price</b></label>
+          <input type="number" id="price" placeholder="Enter Price" name="price" required>
+          
+          <label for="city"><b>City</b></label>
+          <input type="text" id="city" placeholder="Enter City" name="city" required>
+          
+          <label for="address"><b>Address</b></label>
+          <input type="text" id="address" placeholder="Enter Address" name="address" required>
+          
+          
+          <label for="contact"><b>Contact</b></label>
+          <input type="tel" id="contact" placeholder="Enter Contact Number" name="contact" required>
+
+
+
+
+
+          <label>
+            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+          </label>
+      
+          <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+      
+          <div class="clearfix">
+            <a href="signinhotel.html">
+            <button type="button" class="cancelbtn">Signin</button>
+        </a>
+            <button type="submit"  class="signupbtn">Register</button>
+          </div>
+        </div>
+      </form>
+
+
+</body>
+</html>
