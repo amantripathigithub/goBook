@@ -89,7 +89,7 @@ app.post("/", async function(req, res){
          }
         } else {
 
-            // if user email is not exist
+            // if user email is not exist 
             res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
 
         }
@@ -169,7 +169,7 @@ app.post('/signuphotel',(req,res)=>{
     const  city=req.body.city;
     const address=req.body.address;
     const  contact=req.body.contact;
-
+    const  rating=0;
    
     if(password!=cpassword){
         
@@ -189,7 +189,7 @@ app.post('/signuphotel',(req,res)=>{
         if(userExist)
         return res.status(422).json({ error :"email exists already"});
         
-        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact});
+        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact,rating:rating});
 
         hotel.save().then(() => {
             res.status(201).json({message: "registered !! "});

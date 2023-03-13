@@ -23,6 +23,9 @@ let hotel = new Schema({
     },
     contact: {
         type: Number
+    },
+    rating:{
+      type: Number
     }
   });
 
