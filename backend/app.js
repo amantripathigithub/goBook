@@ -169,7 +169,7 @@ app.post('/signuphotel',(req,res)=>{
     const  city=req.body.city;
     const address=req.body.address;
     const  contact=req.body.contact;
-    const  rating=0;
+    const  rating=3;
    
     if(password!=cpassword){
         
@@ -178,6 +178,7 @@ app.post('/signuphotel',(req,res)=>{
     
     // checking for correct number
 
+    
     con=String(contact);
     if(con.length!=10)
         return res.json({error: "not a valid number!!"});
