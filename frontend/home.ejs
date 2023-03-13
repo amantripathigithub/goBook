@@ -8,5 +8,33 @@
 </head>
 <body>
     
+    
+<% if(hotel!=null) { %>
+    <table>
+    <tr>
+        <th>Route</th>
+        <th>origin </th>
+        <th>Destination</th>
+        <th>EstimatedTimeOfArrival </th>
+        <th>Date </th>
+        <th>Time</th>
+    </tr>
+    <% hotel.forEach(function(hotel){ %>
+    <tr>
+        <td><%= hotel.name %></td>
+        <td><%= hotel.price %></td>
+        <td><%= hotel.city%></td>
+        <td><%= hotel.address %></td>
+        <td><%= hotel.contact %></td>
+        
+    
+    </tr>
+    <% }) %>
+    </table>
+    <% } %>
+
+
+
+
 </body>
 </html>

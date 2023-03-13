@@ -20,6 +20,11 @@ const path = require("path");
 let alert = require('alert'); 
 
 
+
+// change 2
+app.set("view engine", "ejs");
+
+
 // middleware
 
 
@@ -74,7 +79,10 @@ app.post("/", async function(req, res){
           //check if password matches
           const result = req.body.psw === user.password;
           if (result) {
-           res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
+            //changes are here
+        const hotel= await Hotel.find({});
+            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel});
+           //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
           } else {
            // if password not match
            return res.json({error: "invalid details !!"});
