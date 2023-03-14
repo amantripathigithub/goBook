@@ -18,17 +18,24 @@
         <li><a class="activex" href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Feedback</a></li>
+        <li><a class="signup" href="#">Sign up</a></li>
+        <li><a class="login" href="#">Login</a></li>
+        <li><a class="reg-hotel" href="#">Register Hotel</a></li>
       </ul>
     </nav>
     <section class="headline">
-      <h1>Responsive Navigation</h1>
-      <p>Using CSS grid and flexbox to easily build navbars!</p>
+      <h1>Over 9,000 hotels and homes across 6 countries</h1>
+      <form class="search-form" action="/">
+        <input
+          type="text"
+          autocomplete="on"
+          name="query"
+          placeholder="Search by city"
+        />
+        <input type="button" value="Search" name="submit" />
+      </form>
     </section>
     <section class="hotelList">
-        
-
       <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
       <div class="hotelList-container">
         <div class="hotelList-img">
@@ -43,8 +50,8 @@
               <a href="hotel_link"><%= hotel.name %></a>
             </h2>
             <span class="rating"
-              ><%= hotel.rating %><i class="fas fa-star"></i
-            ></span>
+              ><i class="fas fa-star"></i> <%= hotel.rating %></span
+            >
           </div>
           <span class="hotel-address"><%= hotel.address %></span>
           <div class="hotel-price">
@@ -63,7 +70,7 @@
         text-decoration: none;
         list-style: none;
         box-sizing: border-box;
-        font-family: "Lato", "Arial", sans-serif;
+        font-family: "montserrat", "Lato", "Arial", sans-serif;
       }
       body {
         font-family: montserrat;
@@ -89,27 +96,20 @@
       }
 
       /* BASIC SETUP */
-
-      .page-wrapper {
-        width: 100%;
-        height: auto;
-      }
-
       nav {
         background: #ffffff;
         height: 80px;
-        width: 100%;
+        margin: 0 4%;
       }
       label.logox {
         color: #060047;
         font-size: 35px;
         line-height: 80px;
-        padding: 0 100px;
         font-weight: bold;
       }
       nav ul {
         float: right;
-        margin-right: 20px;
+        margin-right: 0px;
       }
       nav ul li {
         display: inline-block;
@@ -118,10 +118,38 @@
       }
       nav ul li a {
         color: #252525;
-        font-size: 17px;
-        padding: 7px 13px;
+        font-size: 18px;
+        padding: 6px 6px;
         border-radius: 3px;
-        text-transform: uppercase;
+        text-transform: capitalize;
+        font-weight: 500;
+      }
+      .signup {
+        border: 1px solid #222222c7;
+        padding: 8px;
+        margin-right: -4px;
+      }
+      .login {
+        padding: 8px;
+        background: #1859c9;
+        border: 1px solid #1859c9;
+        color: #fff;
+      }
+      .reg-hotel {
+        border: 1px solid #222;
+        background: #2b3467;
+        border-radius: 50px;
+        padding: 10px;
+        color: #fff;
+      }
+      .login:hover, .reg-hotel:hover {
+        color: #222;
+        background: #eb455f;
+      }
+
+      .signup:hover {
+        background: #eb455f;
+        color: #222;
       }
       a.activex {
         background: #1b9bff;
@@ -132,7 +160,7 @@
       }
       .checkbtn {
         font-size: 30px;
-        color: #fff;
+        color: #eb455f;
         float: right;
         line-height: 80px;
         margin-right: 40px;
@@ -142,15 +170,49 @@
       #check {
         display: none;
       }
-      /* SECTIONS */
 
+      /*Search Bar*/
+      form.search-form {
+        padding: 20px 0 0 0;
+        text-align: center;
+        width: 100%;
+      }
+
+      .search-form input[type="text"] {
+        width: 35%;
+        padding: 12px;
+        border-radius: 20px;
+        background: #eeee;
+        color: #252525;
+        border: 0;
+        outline: 0;
+      }
+
+      .search-form input[type="button"] {
+        width: 15%;
+        padding: 12px;
+        border-radius: 20px;
+        border: 0;
+        outline: 0;
+        font-weight: 900;
+        cursor: pointer;
+        background: #bad7e9;
+      }
+      .search-form input[type="button"]:hover {
+        background: #eb455f;
+        color: #ffffff;
+      }
+      input[type="text"]:focus-visible {
+        border: 1px solid #ff5722;
+        outline: 0;
+      }
+
+      /* SECTIONS */
       .headline {
         width: 100%;
         height: 20vh;
-        min-height: 200px;
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
-          url(https://images.unsplash.com/photo-1435224668334-0f82ec57b605?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80);
-        background-size: cover;
+        min-height: 230px;
+        background: #2b3467;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -188,6 +250,7 @@
         text-align: left;
         font-size: 16px;
         color: #000;
+        text-transform: capitalize;
       }
       span.hotel-address {
         color: #222222a8;
@@ -209,13 +272,12 @@
       }
 
       /* Media Queries */
-
       /* Mobile Devices - Phones/Tablets */
 
       @media only screen and (max-width: 720px) {
         label.logox {
           font-size: 30px;
-          padding-left: 50px;
+          margin-left: 40px;
         }
         nav ul li a {
           font-size: 16px;
@@ -286,16 +348,6 @@
 
         .hotelList-container:nth-child(2) {
           order: -1;
-        }
-
-        /* SEARCH DISABLED ON MOBILE */
-
-        #search-icon {
-          display: none;
-        }
-
-        .search-input {
-          display: none;
         }
       }
     </style>
