@@ -98,6 +98,24 @@ app.post("/", async function(req, res){
       }
 });
 
+// for search page
+
+
+app.get("/search", (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/search.ejs"));
+});
+
+
+app.post("/search", async function(req, res){
+
+    var search_data=req.body.query;
+    const hotel= await Hotel.find({city:search_data});
+
+    res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel});
+
+
+});
 
 
 
