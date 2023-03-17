@@ -35,7 +35,21 @@
         <input type="submit" class="search-btn" value="Search" name="submit" />
       </form>
     </section>
+
+
+ <form action="/hotel" method="post">
+      <input type="hidden" id="blank" name="query2">
+      <input type="submit" id="blank2" onclick="fun2()" name="blank" hidden="hidden" />
+
+      
+    </form> 
+
+
+    
+    
     <section class="hotelList">
+
+
       <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
       <div class="hotelList-container">
         <div class="hotelList-img">
@@ -47,7 +61,10 @@
         <div class="hotelList-info">
           <div class="hotel-info">
             <h2 class="hotel-name">
-              <a href="hotel_link"><%= hotel.name %></a>
+      <!-- changes -->
+
+             <button id="name_hotel" value="<%= hotel.name %>" onclick="fun(this)"><%= hotel.name %></button>
+              <!-- <a href="hotel_link"><%= hotel.name %></a> -->
             </h2>
             <span class="rating"
               ><i class="fas fa-star"></i> <%= hotel.rating %></span
@@ -350,5 +367,18 @@
         }
       }
     </style>
+
+<script>
+  function fun(element){
+    
+document.getElementById("blank").value=element.value;
+//console.log(document.getElementById("blank").value);
+document.getElementById("blank2").click();
+
+  }
+ 
+
+</script>
+
   </body>
 </html>

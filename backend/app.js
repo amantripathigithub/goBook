@@ -117,7 +117,25 @@ app.post("/search", async function(req, res){
 
 });
 
+// for hotel wala page
 
+
+app.get("/hotel", (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/hotel.ejs"));
+});
+
+
+
+app.post("/hotel", async function(req, res){
+
+    var search_data=req.body.query2;
+    const hotel= await Hotel.findOne({name:search_data});
+
+    res.render(path.join(__dirname,"../frontend", "/hotel.ejs"),{hotel:hotel});
+
+
+});
 
 // for signup page
 

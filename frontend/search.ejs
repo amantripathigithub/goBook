@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,6 +24,14 @@
         <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
       </ul>
     </nav>
+    
+ <form action="/hotel" method="post">
+  <input type="hidden" id="blank" name="query2">
+  <input type="submit" id="blank2" onclick="fun2()" name="blank" hidden="hidden" />
+
+  
+</form> 
+
     <section class="headline">
       <h1>Over 9,000 hotels and homes across 6 countries</h1>
       <form class="search-form" action="/search" method="post">
@@ -46,9 +55,16 @@
         </div>
         <div class="hotelList-info">
           <div class="hotel-info">
+
             <h2 class="hotel-name">
+              <!-- changes -->
+        
+                     <button id="name_hotel" value="<%= hotel.name %>" onclick="fun(this)"><%= hotel.name %></button>
+                      <!-- <a href="hotel_link"><%= hotel.name %></a> -->
+                    </h2>
+            <!-- <h2 class="hotel-name">
               <a href="hotel_link"><%= hotel.name %></a>
-            </h2>
+            </h2> -->
             <span class="rating"
               ><i class="fas fa-star"></i> <%= hotel.rating %></span
             >
@@ -353,5 +369,16 @@
         }
       }
     </style>
+    <script>
+      function fun(element){
+        
+    document.getElementById("blank").value=element.value;
+    //console.log(document.getElementById("blank").value);
+    document.getElementById("blank2").click();
+    
+      }
+     
+    
+    </script>
   </body>
 </html>
