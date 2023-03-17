@@ -247,6 +247,8 @@ app.get("/signinhotel", (req, res) => {
 });
 
 
+
+
 app.post("/signinhotel", async function(req, res){
     try {
         // check if the user exists
