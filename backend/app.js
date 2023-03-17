@@ -262,6 +262,7 @@ app.post("/signinhotel", async function(req, res){
           } else {
             return res.status(422).json({ error :"email password does not match !!!!"});
          }
+         
         } else {
 
            // hotel register hi ni to go to register page
