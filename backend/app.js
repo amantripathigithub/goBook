@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-
+const multer = require('multer');
 var express = require("express");
 const mongoose = require('mongoose');
 var app = express();
@@ -18,6 +18,22 @@ const bodyParser = require("body-parser");
 const path = require("path");
 //var popup = require('popups');
 let alert = require('alert'); 
+
+// for image 
+
+app.use(express.static('../frontend/static'));
+
+
+var storage = multer.diskStorage({
+    destination : "../frontend/static",
+    filename: (req,file,cb) => {
+        cb(null , file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+    }
+})
+
+var upload = multer({
+    storage:storage
+}).single('file');
 
 
 
@@ -81,7 +97,16 @@ app.post("/", async function(req, res){
           if (result) {
             //changes are here
         const hotel= await Hotel.find({});
-            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel});
+
+
+// change for search bar
+const city_data=[];
+for( i=0;i<hotel.length;i++){
+    city_data.push(hotel[i].city);
+}
+    
+
+            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
            //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
           } else {
            // if password not match
@@ -111,8 +136,13 @@ app.post("/search", async function(req, res){
 
     var search_data=req.body.query;
     const hotel= await Hotel.find({city:search_data});
-
-    res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel});
+       const hotel2=await Hotel.find({});
+// change for search bar 
+const city_data=[];
+for( i=0;i<hotel2.length;i++){
+    city_data.push(hotel2[i].city);
+}
+    res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel,city_data:city_data});
 
 
 });
@@ -196,7 +226,7 @@ app.get("/signuphotel", (req, res) => {
 
 
 
-app.post('/signuphotel',(req,res)=>{
+app.post('/signuphotel',upload,(req,res)=>{
     const email=req.body.email;
     const password=req.body.password;
     const cpassword=req.body.cpassword;
@@ -206,7 +236,7 @@ app.post('/signuphotel',(req,res)=>{
     const address=req.body.address;
     const  contact=req.body.contact;
     const  rating=3;
-   
+const image=req.file.filename;
     if(password!=cpassword){
         
         return res.json({error: "password not match!!"});
@@ -226,7 +256,7 @@ app.post('/signuphotel',(req,res)=>{
         if(userExist)
         return res.status(422).json({ error :"email exists already"});
         
-        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact,rating:rating});
+        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact,rating:rating,image:image});
 
         hotel.save().then(() => {
             res.status(201).json({message: "registered !! "});
@@ -262,6 +292,7 @@ app.post("/signinhotel", async function(req, res){
           } else {
             return res.status(422).json({ error :"email password does not match !!!!"});
          }
+
         } else {
 
            // hotel register hi ni to go to register page
