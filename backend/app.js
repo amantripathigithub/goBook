@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-
+const multer = require('multer');
 var express = require("express");
 const mongoose = require('mongoose');
 var app = express();
@@ -18,6 +18,22 @@ const bodyParser = require("body-parser");
 const path = require("path");
 //var popup = require('popups');
 let alert = require('alert'); 
+
+// for image 
+
+app.use(express.static('../frontend/static'));
+
+
+var storage = multer.diskStorage({
+    destination : "../frontend/static",
+    filename: (req,file,cb) => {
+        cb(null , file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+    }
+})
+
+var upload = multer({
+    storage:storage
+}).single('file');
 
 
 
@@ -210,7 +226,7 @@ app.get("/signuphotel", (req, res) => {
 
 
 
-app.post('/signuphotel',(req,res)=>{
+app.post('/signuphotel',upload,(req,res)=>{
     const email=req.body.email;
     const password=req.body.password;
     const cpassword=req.body.cpassword;
@@ -220,7 +236,7 @@ app.post('/signuphotel',(req,res)=>{
     const address=req.body.address;
     const  contact=req.body.contact;
     const  rating=3;
-   
+const image=req.file.filename;
     if(password!=cpassword){
         
         return res.json({error: "password not match!!"});
@@ -240,7 +256,7 @@ app.post('/signuphotel',(req,res)=>{
         if(userExist)
         return res.status(422).json({ error :"email exists already"});
         
-        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact,rating:rating});
+        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact,rating:rating,image:image});
 
         hotel.save().then(() => {
             res.status(201).json({message: "registered !! "});

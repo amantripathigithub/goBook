@@ -26,6 +26,9 @@ let hotel = new Schema({
     },
     rating:{
       type: Number
+    },
+    image:{
+      type: String
     }
   });
 
