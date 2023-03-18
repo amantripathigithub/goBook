@@ -27,13 +27,7 @@
     </nav>
     <div class="hotel-layout">
       <div class="hotel-hero-img">
-        <div class="hero-img">
-          <img
-            src="static/<%= hotel.image %>"
-            alt="Flexbox Feature"
-            class="hotel-img"
-          />
-        </div>
+        
       </div>
       <div class="hotel-container">
         <div class="main">
@@ -47,6 +41,12 @@
                 <%= hotel.address %>
                 </span
               >
+              <span class="hotel-number"
+                >
+                <%= hotel.contact %>
+                </span
+              >
+
             </div>
             <div class="hotel-rating">
               <span class="rating"><i class="fa fa-star"></i> <%= hotel.rating %> </span>
@@ -55,8 +55,8 @@
           <div class="hotel-content">
             <h3 class="description">Description</h3>
             <p>
-                <%= hotel.name %> is a boutique hotel in <%= hotel.city %>.
-              Located at 12 km from Hawa Mahal and 20 km from Amber Palace, this
+                <b> <%= hotel.name %>  </b>is a boutique hotel in <b> <%= hotel.city %>.</b>
+              Located at <i><%=hotel.address %></i>, this
               hotel has a parking facility and an in-house restaurant.
             </p>
             <h3 class="amenities-heading">Amenities</h3>
@@ -173,6 +173,13 @@
           </div>
         </div>
         <div class="sidebar">
+          <div class="hero-img">
+            <img
+              src="static/<%= hotel.image %>"
+              alt="Flexbox Feature"
+              class="hotel-img"
+            />
+          </div>
           <div class="hotel-price">
             <span class="price"><%= hotel.price %></span>
           </div>

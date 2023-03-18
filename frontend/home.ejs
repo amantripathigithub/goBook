@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
-<!-- change -->
-<input type="hidden" id="blank3" name="city_list" placeholder="<%= city_data %>">
-
+    <!-- change -->
+    <input
+      type="hidden"
+      id="blank3"
+      name="city_list"
+      placeholder="<%= city_data %>"
+    />
 
     <nav>
       <input type="checkbox" id="check" />
@@ -31,7 +34,12 @@
     </nav>
     <section class="headline">
       <h1>Over 9,000 hotels and homes across 6 countries</h1>
-      <form class="search-form" autocomplete="off" action="/search" method="post">
+      <form
+        class="search-form"
+        autocomplete="off"
+        action="/search"
+        method="post"
+      >
         <input
           type="text"
           id="q"
@@ -44,39 +52,40 @@
       </form>
     </section>
 
+    <form action="/hotel" method="post">
+      <input type="hidden" id="blank" name="query2" />
+      <input
+        type="submit"
+        id="blank2"
+        onclick="fun2()"
+        name="blank"
+        hidden="hidden"
+      />
+    </form>
 
- <form action="/hotel" method="post">
-      <input type="hidden" id="blank" name="query2">
-      <input type="submit" id="blank2" onclick="fun2()" name="blank" hidden="hidden" />
-
-      
-    </form> 
-
-
-    
-    
     <section class="hotelList">
-
-
-
       <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
       <div class="hotelList-container">
         <div class="hotelList-img">
           <img
-           src="static/<%= hotel.image %>"
+            src="static/<%= hotel.image %>"
             alt="Flexbox Feature"
-
             width="200"
             height="250"
-
           />
         </div>
         <div class="hotelList-info">
           <div class="hotel-info">
             <h2 class="hotel-name">
-      <!-- changes -->
+              <!-- changes -->
 
-             <button id="name_hotel" value="<%= hotel.name %>" onclick="fun(this)"><%= hotel.name %></button>
+              <button
+                id="name_hotel"
+                value="<%= hotel.name %>"
+                onclick="fun(this)"
+              >
+                <%= hotel.name %>
+              </button>
               <!-- <a href="hotel_link"><%= hotel.name %></a> -->
             </h2>
             <span class="rating"
@@ -94,7 +103,6 @@
     </section>
 
     <style>
-
       /*Search Bar*/
       form.search-form {
         padding: 20px 0 0 0;
@@ -130,30 +138,20 @@
         border: 1px solid #ff5722;
         outline: 0;
       }
-/* for search bar result */
-#result {
-  border: 2px dotted #302727;
-  padding: 3px;
-}
-#result {
-  /* list-style-type: none;
-  padding: 0;
-  margin: 0; */
+      /* for search bar result */
+      #result {
+        border: 2px dotted #302727;
+        padding: 3px;
+      }
+      #result {
+        background: #dae0e8;
+        color: darkblue;
+        margin: 5px;
+      }
 
-  
-
-  background: #dae0e8;
-  color: darkblue;
-  margin: 5px;
-}
-/* }
-#result ul li {
-  padding: 5px 0;
-} */
-
-#result ul li:hover {
-  background: #689f41;
-}
+      #result ul li:hover {
+        background: #689f41;
+      }
 
       /* SECTIONS */
       .headline {
@@ -241,7 +239,7 @@
         p {
           font-size: 0.8rem;
         }
-        
+
         /* SECTIONS */
 
         .headline {
@@ -262,101 +260,88 @@
       }
     </style>
 
-<script>
-  function fun(element){
-    
-document.getElementById("blank").value=element.value;
-//console.log(document.getElementById("blank").value);
-document.getElementById("blank2").click();
+    <script>
+      function fun(element) {
+        document.getElementById("blank").value = element.value;
+        //console.log(document.getElementById("blank").value);
+        document.getElementById("blank2").click();
+      }
 
-  }
- 
-  //var list_of_city=city_data;
-  
-  var search_t = document.getElementById("blank3").placeholder ;
-console.log(search_terms);
- // var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
-var search_terms=search_t.split(",");
-search_terms=fun3(search_terms);
+      //var list_of_city=city_data;
 
-function fun3(arr){
-  var unique = arr.reduce(function (acc, curr) {
-            if (!acc.includes(curr))
-                acc.push(curr);
-            return acc;
+      var search_t = document.getElementById("blank3").placeholder;
+      console.log(search_terms);
+      // var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
+      var search_terms = search_t.split(",");
+      search_terms = fun3(search_terms);
+
+      function fun3(arr) {
+        var unique = arr.reduce(function (acc, curr) {
+          if (!acc.includes(curr)) acc.push(curr);
+          return acc;
         }, []);
         return unique;
-}
+      }
 
-function autocompleteMatch(input) {
-  if (input == '') {
-    return [];
-  }
-  var reg = new RegExp(input)
-  return search_terms.filter(function(term) {
-	  if (term.match(reg)) {
-  	  return term;
-	  }
-  });
-}
+      function autocompleteMatch(input) {
+        if (input == "") {
+          return [];
+        }
+        var reg = new RegExp(input);
+        return search_terms.filter(function (term) {
+          if (term.match(reg)) {
+            return term;
+          }
+        });
+      }
 
-function showResults(val) {
-  res = document.getElementById("result");
-  res.innerHTML = '';
-  let list = '';
-  let terms = autocompleteMatch(val);
-  for (i=0; i<terms.length; i++) {
-    list += '<li id='+ terms[i]+'>' + terms[i] + '</li>';
-  }
-  res.innerHTML = '<ul id="list1" >' + list + '</ul>';
+      function showResults(val) {
+        res = document.getElementById("result");
+        res.innerHTML = "";
+        let list = "";
+        let terms = autocompleteMatch(val);
+        for (i = 0; i < terms.length; i++) {
+          list += "<li id=" + terms[i] + ">" + terms[i] + "</li>";
+        }
+        res.innerHTML = '<ul id="list1" >' + list + "</ul>";
 
-// after it
-var lis = document.getElementById("list1").getElementsByTagName('li');
+        // after it
+        var lis = document.getElementById("list1").getElementsByTagName("li");
 
-    for (var i=0; i<lis.length; i++) {
-        lis[i].addEventListener('click', doStuff, false);
-    }
+        for (var i = 0; i < lis.length; i++) {
+          lis[i].addEventListener("click", doStuff, false);
+        }
 
-    function doStuff() {
-      var te=document.getElementById("q");
-      te.value=this.id;
-    }
+        function doStuff() {
+          var te = document.getElementById("q");
+          te.value = this.id;
+        }
 
+        // document.getElementById("list1").addEventListener("click",function(e) {
+        //         // e.target is our targetted element.
+        //                     // try doing console.log(e.target.nodeName), it will result LI
+        //                     if(e.target && e.target.nodeName == "LI") {
+        //             console.log(e.id + " was clicked");
+        //                     }
+        //     });
 
+        // var ul = document.getElementById("list1");
 
+        // var listItems = ul.getElementsByTagName("li");
+        // var te=document.getElementById("q");
+        // for(li of  listItems){
+        //   li.addEventListener('click', function(){
+        //     var val=li.id;
+        //     //val=val.substring(4,val.length-5);
 
-// document.getElementById("list1").addEventListener("click",function(e) {
-//         // e.target is our targetted element.
-//                     // try doing console.log(e.target.nodeName), it will result LI
-//                     if(e.target && e.target.nodeName == "LI") {
-//             console.log(e.id + " was clicked");
-//                     }
-//     });
+        //     te.value=li.id;
+        // console.log(li);
 
+        //   })
+        // }
 
-
-
-// var ul = document.getElementById("list1");
-
-// var listItems = ul.getElementsByTagName("li");
-// var te=document.getElementById("q");
-// for(li of  listItems){
-//   li.addEventListener('click', function(){
-//     var val=li.id;
-//     //val=val.substring(4,val.length-5);
-
-//     te.value=li.id;
-// console.log(li);
-
-//   })
-// }
-
-
- // console.log(list);
-}
-
-
-</script>
-
+        // console.log(list);
+      }
+    </script>
   </body>
 </html>
