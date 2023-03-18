@@ -81,7 +81,16 @@ app.post("/", async function(req, res){
           if (result) {
             //changes are here
         const hotel= await Hotel.find({});
-            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel});
+
+
+// change for search bar
+const city_data=[];
+for( i=0;i<hotel.length;i++){
+    city_data.push(hotel[i].city);
+}
+    
+
+            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
            //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
           } else {
            // if password not match
@@ -111,8 +120,13 @@ app.post("/search", async function(req, res){
 
     var search_data=req.body.query;
     const hotel= await Hotel.find({city:search_data});
-
-    res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel});
+       const hotel2=await Hotel.find({});
+// change for search bar 
+const city_data=[];
+for( i=0;i<hotel2.length;i++){
+    city_data.push(hotel2[i].city);
+}
+    res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel,city_data:city_data});
 
 
 });
@@ -262,7 +276,7 @@ app.post("/signinhotel", async function(req, res){
           } else {
             return res.status(422).json({ error :"email password does not match !!!!"});
          }
-         
+
         } else {
 
            // hotel register hi ni to go to register page

@@ -8,6 +8,11 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
   <body>
+
+<!-- change -->
+<input type="hidden" id="blank3" name="city_list" placeholder="<%= city_data %>">
+
+
     <nav>
       <input type="checkbox" id="check" />
       <label for="check" class="checkbtn">
@@ -25,13 +30,15 @@
     </nav>
     <section class="headline">
       <h1>Over 9,000 hotels and homes across 6 countries</h1>
-      <form class="search-form" action="/search" method="post">
+      <form class="search-form" autocomplete="off" action="/search" method="post">
         <input
           type="text"
-          autocomplete="on"
+          id="q"
           name="query"
+          onKeyUp="showResults(this.value)"
           placeholder="Search by city"
         />
+        <div id="result"></div>
         <input type="submit" class="search-btn" value="Search" name="submit" />
       </form>
     </section>
@@ -48,6 +55,7 @@
     
     
     <section class="hotelList">
+
 
 
       <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
@@ -111,6 +119,31 @@
         line-height: 1.4;
         margin-bottom: 10px;
       }
+
+ /* for search bar result */
+ #result {
+  border: 2px dotted #302727;
+  padding: 3px;
+}
+#result {
+  /* list-style-type: none;
+  padding: 0;
+  margin: 0; */
+
+  
+
+  background: #dae0e8;
+  color: darkblue;
+  margin: 5px;
+}
+/* }
+#result ul li {
+  padding: 5px 0;
+} */
+
+#result ul li:hover {
+  background: #689f41;
+}
 
       /* BASIC SETUP */
       nav {
@@ -377,6 +410,90 @@ document.getElementById("blank2").click();
 
   }
  
+  //var list_of_city=city_data;
+  
+  var search_t = document.getElementById("blank3").placeholder ;
+console.log(search_terms);
+ // var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
+var search_terms=search_t.split(",");
+search_terms=fun3(search_terms);
+
+function fun3(arr){
+  var unique = arr.reduce(function (acc, curr) {
+            if (!acc.includes(curr))
+                acc.push(curr);
+            return acc;
+        }, []);
+        return unique;
+}
+
+function autocompleteMatch(input) {
+  if (input == '') {
+    return [];
+  }
+  var reg = new RegExp(input)
+  return search_terms.filter(function(term) {
+	  if (term.match(reg)) {
+  	  return term;
+	  }
+  });
+}
+
+function showResults(val) {
+  res = document.getElementById("result");
+  res.innerHTML = '';
+  let list = '';
+  let terms = autocompleteMatch(val);
+  for (i=0; i<terms.length; i++) {
+    list += '<li id='+ terms[i]+'>' + terms[i] + '</li>';
+  }
+  res.innerHTML = '<ul id="list1" >' + list + '</ul>';
+
+// after it
+var lis = document.getElementById("list1").getElementsByTagName('li');
+
+    for (var i=0; i<lis.length; i++) {
+        lis[i].addEventListener('click', doStuff, false);
+    }
+
+    function doStuff() {
+      var te=document.getElementById("q");
+      te.value=this.id;
+    }
+
+
+
+
+// document.getElementById("list1").addEventListener("click",function(e) {
+//         // e.target is our targetted element.
+//                     // try doing console.log(e.target.nodeName), it will result LI
+//                     if(e.target && e.target.nodeName == "LI") {
+//             console.log(e.id + " was clicked");
+//                     }
+//     });
+
+
+
+
+// var ul = document.getElementById("list1");
+
+// var listItems = ul.getElementsByTagName("li");
+// var te=document.getElementById("q");
+// for(li of  listItems){
+//   li.addEventListener('click', function(){
+//     var val=li.id;
+//     //val=val.substring(4,val.length-5);
+
+//     te.value=li.id;
+// console.log(li);
+
+//   })
+// }
+
+
+ // console.log(list);
+}
+
 
 </script>
 
