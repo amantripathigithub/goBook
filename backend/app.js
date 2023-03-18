@@ -47,6 +47,8 @@ app.post("/" , function(req,res){
     pasws=req.body.psw;
 
 
+
+
    
     User.findOne({email:email})
     .then((userExist)=>{
@@ -64,6 +66,8 @@ app.post("/" , function(req,res){
         }
      
     }).catch(err => {"error"});
+
+
 
 
    // console.log(req.body);
@@ -112,6 +116,8 @@ for( i=0;i<hotel.length;i++){
 // for search page
 
 
+
+
 app.get("/search", (req, res) => {
     app.use(express.static("../frontend"));
     res.sendFile(path.join(__dirname, "../frontend", "/search.ejs"));
@@ -154,6 +160,8 @@ app.post("/hotel", async function(req, res){
 });
 
 // for signup page
+
+
 
 
 app.get("/signup", (req, res) => {
@@ -221,6 +229,8 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage:storage
 }).single('file');
+
+
 
 
 
