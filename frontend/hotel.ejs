@@ -2,305 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-        * {
-          padding: 0;
-          margin: 0;
-          text-decoration: none;
-          list-style: none;
-          box-sizing: border-box;
-          font-family: "montserrat", "Lato", "Arial", sans-serif;
-        }
-        body {
-          font-family: montserrat;
-        }
-        /* HEADINGS  src="https://cdn-images-1.medium.com/max/2000/1*HFAEJvVOq4AwFuBivNu_OQ.png" */
-  
-        h1,
-        p {
-          color: #fff;
-          text-align: center;
-          line-height: 1.4;
-        }
-  
-        h1 {
-          font-size: 2.2rem;
-        }
-  
-        h2 {
-          color: #000;
-          font-size: 1.3rem;
-          line-height: 1.4;
-          margin-bottom: 10px;
-        }
-  
-        /* BASIC SETUP */
-        nav {
-          background: #ffffff;
-          height: 80px;
-          margin: 0 4%;
-        }
-        .logox {
-          color: #060047;
-          font-size: 35px;
-          line-height: 80px;
-          font-weight: bold;
-        }
-        nav ul {
-          float: right;
-          margin-right: 0px;
-        }
-        nav ul li {
-          display: inline-block;
-          line-height: 80px;
-          margin: 0 5px;
-        }
-        nav ul li a {
-          color: #252525;
-          font-size: 18px;
-          padding: 6px 6px;
-          border-radius: 3px;
-          text-transform: capitalize;
-          font-weight: 500;
-        }
-        .signup {
-          border: 1px solid #222222c7;
-          padding: 8px;
-          margin-right: -4px;
-        }
-        .login {
-          padding: 8px;
-          background: #1859c9;
-          border: 1px solid #1859c9;
-          color: #fff;
-        }
-        .reg-hotel {
-          border: 1px solid #222;
-          background: #2b3467;
-          border-radius: 50px;
-          padding: 10px;
-          color: #fff;
-        }
-        .login:hover, .reg-hotel:hover {
-          color: #222;
-          background: #eb455f;
-        }
-  
-        .signup:hover {
-          background: #eb455f;
-          color: #222;
-        }
-        a.activex {
-          border-bottom: 4px solid #1859c9;
-        }
-        a:hover {
-          color: #e90064;
-        }
-        .checkbtn {
-          font-size: 30px;
-          color: #eb455f;
-          float: right;
-          line-height: 80px;
-          margin-right: 40px;
-          cursor: pointer;
-          display: none;
-        }
-        #check {
-          display: none;
-        }
-  
-        /*Search Bar*/
-        form.search-form {
-          padding: 20px 0 0 0;
-          text-align: center;
-          width: 100%;
-        }
-  
-        .search-form input[type="text"] {
-          width: 35%;
-          padding: 12px;
-          border-radius: 20px;
-          background: #eeee;
-          color: #252525;
-          border: 0;
-          outline: 0;
-        }
-  
-        .search-form .search-btn {
-          width: 15%;
-          padding: 12px;
-          border-radius: 20px;
-          border: 0;
-          outline: 0;
-          font-weight: 900;
-          cursor: pointer;
-          background: #bad7e9;
-        }
-        .search-form .search-btn:hover {
-          background: #eb455f;
-          color: #ffffff;
-        }
-        input[type="text"]:focus-visible {
-          border: 1px solid #ff5722;
-          outline: 0;
-        }
-  
-        /* SECTIONS */
-        .headline {
-          width: 100%;
-          height: 20vh;
-          min-height: 230px;
-          background: #2b3467;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-  
-        .hotelList {
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          height: auto;
-          background-color: #ffffff;
-          padding: 50px 20px;
-          justify-content: center;
-          gap: 2%;
-        }
-  
-        .hotelList-container {
-          width: 30%;
-          margin-top: 10px;
-        }
-  
-        .hotelList-container p {
-          color: #000;
-          text-align: center;
-          line-height: 1.4;
-          margin-bottom: 15px;
-        }
-  
-        .hotelList-container img {
-          width: 100%;
-          margin-bottom: 5px;
-        }
-  
-        .hotel-name a {
-          text-align: left;
-          font-size: 16px;
-          color: #000;
-          text-transform: capitalize;
-        }
-        span.hotel-address {
-          color: #222222a8;
-        }
-  
-        .hotel-price {
-          margin: 10px 0 0 0;
-        }
-        .hotel-info {
-          display: flex;
-          align-items: center;
-          flex-direction: row;
-          justify-content: space-between;
-          padding: 0 4px;
-        }
-        .rating {
-          font-size: 14px;
-          font-weight: 700;
-        }
-  
-        /* Media Queries */
-        /* Mobile Devices - Phones/Tablets */
-  
-        @media only screen and (max-width: 720px) {
-          label.logox {
-            font-size: 30px;
-            margin-left: 40px;
-          }
-          nav ul li a {
-            font-size: 16px;
-          }
-          .hotelList {
-            flex-direction: column;
-            padding: 50px;
-          }
-  
-          /* MOBILE HEADINGS */
-  
-          h1 {
-            font-size: 1.9rem;
-          }
-  
-          h2 {
-            font-size: 1rem;
-          }
-  
-          p {
-            font-size: 0.8rem;
-          }
-  
-          /* MOBILE NAVIGATION */
-          .checkbtn {
-            display: block;
-          }
-          ul {
-            position: fixed;
-            width: 100%;
-            height: 100vh;
-            background: #2c3e50;
-            top: 80px;
-            left: -100%;
-            text-align: center;
-            transition: all 0.5s;
-          }
-          nav ul li {
-            display: block;
-            margin: 50px 0;
-            line-height: 30px;
-          }
-          nav ul li a {
-            font-size: 20px;
-          }
-          a:hover,
-          a.activex {
-            background: none;
-            color: #0082e6;
-          }
-          #check:checked ~ ul {
-            left: 0;
-          }
-  
-          /* SECTIONS */
-  
-          .headline {
-            height: 20vh;
-          }
-  
-          .hotelList-container p {
-            margin-bottom: 25px;
-          }
-  
-          .hotelList-container {
-            margin-top: 20px;
-          }
-  
-          .hotelList-container:nth-child(2) {
-            order: -1;
-          }
-        }
-      </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>goBook - Book your room now</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script src="https://use.fontawesome.com/8ccd124d94.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <nav>
       <input type="checkbox" id="check" />
       <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
+        <i class="fa fa-bars"></i>
       </label>
       <label class="logox"><a href="/">goBook</a></label>
       <ul>
@@ -336,7 +49,7 @@
               >
             </div>
             <div class="hotel-rating">
-              <span class="rating"><i class="fas fa-star"></i> <%= hotel.rating %> </span>
+              <span class="rating"><i class="fa fa-star"></i> <%= hotel.rating %> </span>
             </div>
           </div>
           <div class="hotel-content">
@@ -349,8 +62,112 @@
             <h3 class="amenities-heading">Amenities</h3>
             <div class="amenities">
               <div class="amenities-item">
-                <span class="amenities-icon"> svg </span>
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
                 <span class="amenities-name"> wifi </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-wifi" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Free wifi </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Modern wardrobe </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-bed" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> King Sized Bed </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> AC </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Attached Washroom </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-television" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> TV </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-shower" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Geyser </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Elevator </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Room Heater </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-home" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> In-house restaurant </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-camera-retro" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Banquet hall </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Bedside Table / Desk </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> 24/7 check-in </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-motorcycle" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Bike Rentals </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Dress Hanger </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Bidet/Washlet </span>
+              </div>
+              <div class="amenities-item">
+                <span class="amenities-icon">
+                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                </span>
+                <span class="amenities-name"> Iron </span>
               </div>
             </div>
           </div>
@@ -359,6 +176,15 @@
           <div class="hotel-price">
             <span class="price"><%= hotel.price %></span>
           </div>
+          <ul class="hotel-popular-facilities">
+            <li class="popular-facilities-item"><span><i class="fa fa-home" aria-hidden="true"></i></span>Family Rooms</li>
+            <li class="popular-facilities-item"><span><i class="fa fa-bed" aria-hidden="true"></i>
+            </span>Room service</li>
+            <li class="popular-facilities-item"><span><i class="fa fa-car" aria-hidden="true"></i>
+            </span>Free parking</li>
+            <li class="popular-facilities-item"><span><i class="fa fa-universal-access" aria-hidden="true"></i>
+            </span>Fitness centre</li>
+          </ul>
           <div class="book-now">
             <p>BOOK NOW</p>
           </div>
@@ -397,16 +223,19 @@
         color: #252525;
         padding: 10px 0px;
         text-align: left;
+        text-transform: capitalize;
       }
 
       span.hotel-address {
         color: #0000007d;
         padding: 10px 5px;
+        text-transform: capitalize;
       }
 
       .hotel-details {
         display: flex;
         margin: 0 0 20px 0;
+        justify-content: space-between;
       }
 
       .hotel-info {
@@ -430,6 +259,7 @@
       .amenities {
         display: flex;
         padding: 5px 10px;
+        flex-wrap: wrap;
       }
 
       .hotel-price {
@@ -458,7 +288,25 @@
         color: #252525;
         font-weight: 900;
       }
+      h3.amenities-heading {
+    margin: 20px 0 0 0;
+}
+      .amenities-item {
+        display: flex;
+        width: 33%;
+        align-items: center;
+        margin: 18px 0 0 0;
+        /* justify-content: center; */
+      }
 
+      span.amenities-icon {
+        margin: 0 10px 0 0;
+      }
+      li.popular-facilities-item {
+    text-align: left;
+    margin: 10px 0;
+    font-size: 16px;
+}
       /* Media Queries */
       /* Mobile Devices - Phones/Tablets */
 
