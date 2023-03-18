@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const multer = require('multer');
 var express = require("express");
 const mongoose = require('mongoose');
+const fs=require('fs');
 var app = express();
 dotenv.config({path: './config.env'});
 const PORT = process.env.PORT;
@@ -19,26 +20,11 @@ const path = require("path");
 //var popup = require('popups');
 let alert = require('alert'); 
 
-// for image 
-
-app.use(express.static('../frontend/static'));
-
-
-var storage = multer.diskStorage({
-    destination : "../frontend/static",
-    filename: (req,file,cb) => {
-        cb(null , file.fieldname + '_' + Date.now() + path.extname(file.originalname))
-    }
-})
-
-var upload = multer({
-    storage:storage
-}).single('file');
-
+app.set("view engine", "ejs");
 
 
 // change 2
-app.set("view engine", "ejs");
+
 
 
 // middleware
@@ -216,6 +202,26 @@ app.post('/signup',(req,res)=>{
 
 
 // for hotal signup page
+
+// for image 
+
+app.use(express.static('../frontend/static'));
+
+
+var storage = multer.diskStorage({
+    destination : "../frontend/static",
+    filename: (req,file,cb) => {
+        cb(null , file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+
+    }
+})
+
+
+
+var upload = multer({
+    storage:storage
+}).single('file');
+
 
 
 app.get("/signuphotel", (req, res) => {
