@@ -1,6 +1,9 @@
 const dotenv = require('dotenv');
 const multer = require('multer');
 var express = require("express");
+const cookieParser = require("cookie-parser");
+const cookie = require("js-cookie");
+const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
 const fs=require('fs');
 var app = express();
@@ -9,10 +12,14 @@ const PORT = process.env.PORT;
 //isse connection ho jayega
 require('./db/connection');
 
+const auth = require('./middleware/auth');
+
+
 //app.use(require('./router/auth'));
 const User = require('./model/user');
 // for hotel schema
 const Hotel = require('./model/hotel');
+
 
 const bodyParser = require("body-parser");
 
@@ -25,7 +32,7 @@ app.set("view engine", "ejs");
 
 // change 2
 
-
+app.use(cookieParser());
 
 // middleware
 
@@ -34,6 +41,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
     extended:true
 }));
+
+app.use(bodyParser.json());
 
 var port = 3000;
 
@@ -84,6 +93,17 @@ app.post("/", async function(req, res){
         if (user) {
           //check if password matches
           const result = req.body.psw === user.password;
+// for token    ---->>>>
+          const token = await user.generateAuthToken();
+          //console.log("the token part" + token);
+          res.cookie("jwt", token, {
+              expires: new Date(Date.now() + 100000),
+              httpOnly: true
+              //secure:true
+          });
+
+// yaha tak ---->>>>>>
+
           if (result) {
             //changes are here
         const hotel= await Hotel.find({});
@@ -189,11 +209,12 @@ app.post('/signup',(req,res)=>{
     }
 
     User.findOne({email:email,password:password})
-    .then((userExist)=>{
+    .then(async (userExist)=>{
         if(userExist)
         return res.status(422).json({ error :"email exists already"});
         
         const user = new User({email:email,password:password});
+
 
         user.save().then(() => {
             res.status(201).json({message: "registered !! "});
@@ -319,6 +340,17 @@ app.post("/signinhotel", async function(req, res){
       }
 });
 
+
+app.get("/about",auth, (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/about.html"));
+});
+
+
+app.get("/book",auth, (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/book.html"));
+});
 
 
 
