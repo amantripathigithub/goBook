@@ -40,7 +40,7 @@
          
           <%} else { %>
             <form action="/myaccount" method="post">
-            <li>  <input type="submit" class="login" value="My Account" name="submit" /> </li>
+            <li>  <input class="myaccount" type="submit" value="My Account" name="submit" /> </li>
             <!-- <li><a class="login" id = "myaccount" href="./myaccount.html">My Account</a></li> -->
           </form>
           <% } %>
@@ -86,7 +86,7 @@
 
     <section class="hotelList">
       <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
-      <div class="hotelList-container">
+      <div class="hotelList-container" >
         <div class="hotelList-img">
           <img
             src="static/<%= hotel.image %>"

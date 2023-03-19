@@ -75,11 +75,27 @@
     padding: 10px;
     color: #fff;
   }
-  .login:hover, .reg-hotel:hover {
+  .login:hover, .reg-hotel:hover, .myaccount:hover {
     color: #222;
     background: #eb455f;
   }
+  input.myaccount {
+    border: 0;
+    color: #252525;
+    font-size: 18px;
+    padding: 8px;
+    border-radius: 3px;
+    text-transform: capitalize;
+    font-weight: 500;
+    background: #1859c9;
+    cursor: pointer;
+}
 
+form {
+    display: inline-block;
+    /* line-height: 80px; */
+    margin: 0 5px;
+}
   .signup:hover {
     background: #eb455f;
     color: #222;
