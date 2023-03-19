@@ -9,7 +9,7 @@ const fs=require('fs');
 var app = express();
 const register = require("./model/user");
 dotenv.config({path: './config.env'});
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 //isse connection ho jayega
 require('./db/connection');
 
@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-var port = 3000;
+
 
 
 
@@ -105,7 +105,7 @@ app.post("/signin", async function(req, res){
           const token = await user.generateAuthToken();
           //console.log("the token part" + token);
           res.cookie("jwt", token, {
-              expires: new Date(Date.now() + 900000),
+              expires: new Date(Date.now() + 100000),
               httpOnly: true
               //secure:true
           });
@@ -500,6 +500,6 @@ app.post("/logout",auth, async function(req, res){
 
 
 
-app.listen(port, () => {
- console.log("Server listening on port " + port);
+app.listen(PORT, () => {
+ console.log("Server listening on port " + `${PORT}`);
 });
