@@ -80,9 +80,9 @@
           placeholder="Search by city"
           onKeyUp="showResults(this.value)"
         />
-        <div id="result"></div>
         <input type="submit" class="search-btn" value="Search" name="submit" />
       </form>
+      <div id="result"></div>
     </section>
     <section class="hotelList">
       <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
@@ -127,7 +127,7 @@
     </section>
 
     <style>
-
+     
       /*Search Bar*/
       form.search-form {
         padding: 20px 0 0 0;
@@ -163,19 +163,34 @@
         border: 1px solid #ff5722;
         outline: 0;
       }
-      /* for search bar result */
-      #result {
-        border: 2px dotted #302727;
-        padding: 3px;
+        /* for search bar result */
+        #result {
+        border: 1px dotted #000000;
+        background: #eee;
+        color: #5b5b5b;
+        width: 32%;
+        margin: 0 auto;
+        position: relative;
+        left: -120px;
+        border-radius: 5px;
+        display: flex;
+        scroll-behavior: smooth;
+        overflow: auto;
+        max-height: 100px;
       }
-      #result {
-        background: #dae0e8;
-        color: darkblue;
-        margin: 5px;
+      #list1 li {
+        padding: 8px 8px 8px 5px;
+        border-bottom: 1px solid #3333;
+        display: block;
+        text-transform: capitalize;
+        cursor: pointer;
+      }
+      ul#list1 {
+        width: 100%;
       }
 
       #result ul li:hover {
-        background: #689f41;
+        background: #33333333;
       }
 
       /* SECTIONS */
