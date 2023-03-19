@@ -1,12 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About us</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://use.fontawesome.com/8ccd124d94.js"></script>
 </head>
+
 <body>
-    <h1>about me</h1>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <i class="fa fa-bars"></i>
+    </label>
+    <label class="logox"><a href="/">goBook</a></label>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a class="activex" href="about">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a class="signup" href="signup.html">Sign up</a></li>
+
+      <% if (fl===0) { %>
+        <li><a class="login" id="login" href="signin.html">Login</a></li>
+        <%} else { %>
+          <form action="/myaccount" method="post">
+            <li>
+              <input class="myaccount" type="submit" value="My Account" name="submit" />
+            </li>
+            <!-- <li><a class="login" id = "myaccount" href="./myaccount.html">My Account</a></li> -->
+          </form>
+          <% } %>
+
+            <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <div class="container">
+      <h1 class="title">Founders</h1>
+      <div class="founders">
+        <div class="founder">
+          <div class="founder-container">
+            <div class="founder-img">
+              <img src="static/logo.jpg" alt="" />
+            </div>
+            <div class="founder-info">
+              <h2 class="founder-name">Yogesh Kumar Sai</h2>
+              <p class="founder-title">Front-end Developer</p>
+              <p class="founder-description">
+                This is yogesh and its description
+              </p>
+            </div>
+            <div class="conect-us">
+              <p class="social-title">Connect us</p>
+              <ul class="social-icons">
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-github" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                </li>           
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </li>               
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="founder">
+          <div class="founder-container">
+            <div class="founder-img">
+              <img src="static/logo.jpg" alt="" />
+            </div>
+            <div class="founder-info">
+              <h2 class="founder-name">Yogesh Kumar Sai</h2>
+              <p class="founder-title">Front-end Developer</p>
+              <p class="founder-description">
+                This is yogesh and its description
+              </p>
+            </div>
+            <div class="conect-us">
+              <p class="social-title">Connect us</p>
+              <ul class="social-icons">
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-github" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                </li>           
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </li>               
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="" class="social-link"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="founder">
+          <div class="founder-container">
+            <div class="founder-img">
+              <img src="static/logo.jpg" alt="" />
+            </div>
+            <div class="founder-info">
+              <h2 class="founder-name">Yogesh Kumar Sai</h2>
+              <p class="founder-title">Front-end Developer</p>
+              <p class="founder-description">
+                This is yogesh and its description
+              </p>
+            </div>
+            <div class="conect-us">
+              <p class="social-title">Connect us</p>
+              <ul class="social-icons">
+                <li class="social">
+                  <a target="_blank" href="https://github.com/w3yogesh" class="social-link"><i class="fa fa-github" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="https://www.linkedin.com/in/w3yogesh/" class="social-link"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="https://www.facebook.com/w3yogesh" class="social-link"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                </li>           
+                <li class="social">
+                  <a target="_blank" href="https://www.instagram.com/w3yogesh/" class="social-link"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </li>               
+                <li class="social">
+                  <a target="_blank" href="https://twitter.com/w3yogesh/" class="social-link"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                </li>
+                <li class="social">
+                  <a target="_blank" href="https://www.w3yogesh.com/" class="social-link"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aboutus">
+        <div class="about-img">
+          <img src="static/hotel-img.jpg" alt="" class="abtimg" />
+        </div>
+        <div class="about-info">
+          <h1 class="about-title">goBook - Book your hotel now</h1>
+          <p>
+            GoBook is a user-friendly hotel room booking website that offers a
+            hassle-free booking experience to travelers. With its simple
+            interface and intuitive design, users can easily search for
+            available hotels, compare prices and amenities, and book their
+            desired room with just a few clicks.
+          </p>
+          <p>
+            GoBook also provides detailed information about each hotel,
+            including customer reviews, photos, and location maps, allowing
+            users to make informed decisions before booking.
+          </p>
+          <p>
+            Whether you're planning a business trip or a leisurely vacation,
+            GoBook makes it easy to find the perfect hotel room at a
+            competitive price. With its reliable service and excellent
+            customer support, GoBook is a top choice for anyone looking for a
+            seamless hotel booking experience.
+          </p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <style>
+    .main {
+      margin: 0 4%;
+    }
+
+    .title {
+      text-align: center;
+      display: block;
+    }
+
+    .aboutus {
+      display: inline-flex;
+      padding: 10px;
+      align-items: center;
+    }
+
+    .about-img {
+      display: inline-block;
+      width: 40%;
+    }
+
+    img.abtimg {
+      width: 100%;
+    }
+
+    .about-info {
+      display: inline-block;
+      width: 60%;
+    }
+
+    .about-info p {
+      text-align: justify;
+      margin: 20px;
+    }
+
+    .founders {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin: 30px 0;
+    }
+
+    .founder {
+      background: #18122b;
+      padding: 30px 15px;
+      width: 30%;
+      border-radius: 10px;
+      box-shadow: 5px 5px 17px #c4c2c2, -5px -5px 17px #ffffff;
+    }
+
+    .founder-img {}
+
+    .founder-img img {
+      border-radius: 100%;
+    }
+
+    .founder-img {
+      width: 250px;
+      margin: 10px auto;
+    }
+
+    .founder-info {
+      color: #fff;
+    }
+
+    h2.founder-name {
+      text-align: center;
+      font-size: 28px;
+      margin: 0;
+    }
+
+    p.founder-title {
+      color: #b1b1b1;
+    }
+
+    p.founder-description {
+      margin: 10px 0 0 0;
+    }
+
+    p.social-title {
+      color: #919191;
+      float: left;
+      display: none;
+    }
+
+    .conect-us {
+      padding: 20px;
+      margin: 15px 0 10px 0;
+    }
+
+    ul.social-icons {
+      color: #fff;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    a.social-link {
+      font-size: 20px;
+      color: #eee;
+      padding: 10px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    i.fa {
+      width: 24px;
+      text-align: center;
+    }
+    .founder:hover {
+    transform: translateY(-5px) scale(1.005) translateZ(0);
+    box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11), 0 24px 46px rgba(220, 233, 255, 0.48);
+    }
+    a.social-link:hover {
+      color: #ff5722;
+      background: #eee;
+      border-radius: 100%;
+    }
+    
+  </style>
 </body>
+
 </html>

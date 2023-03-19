@@ -1,336 +1,351 @@
 <!--This page show hotel single page view-->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>goBook - Book your room now</title>
-    <script src="https://use.fontawesome.com/8ccd124d94.js"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <nav>
-      <input type="checkbox" id="check" />
-      <label for="check" class="checkbtn">
-        <i class="fa fa-bars"></i>
-      </label>
-      <label class="logox"><a href="/">goBook</a></label>
-      <ul>
-        <li><a class="activex" href="#">Home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a class="signup" href="signup.html">Sign up</a></li>
-        <% if (fl === 0) { %>
-          <li><a class="login"  id = "login" href="signin.html">Login</a></li>
-          <%} else { %>
-            <form action="/myaccount" method="post">
-            <li>  <input class="myaccount" type="submit" value="My Account" name="submit" /> </li>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= hotel.name %> - goBook
+  </title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script src="https://use.fontawesome.com/8ccd124d94.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <i class="fa fa-bars"></i>
+    </label>
+    <label class="logox"><a href="/">goBook</a></label>
+    <ul>
+      <li><a class="activex" href="#">Home</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a class="signup" href="signup.html">Sign up</a></li>
+      <% if (fl===0) { %>
+        <li><a class="login" id="login" href="signin.html">Login</a></li>
+        <%} else { %>
+          <form action="/myaccount" method="post">
+            <li> <input class="myaccount" type="submit" value="My Account" name="submit" /> </li>
             <!-- <li><a class="login" id = "myaccount" href="./myaccount.html">My Account</a></li> -->
           </form>
           <% } %>
-        <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
-      </ul>
-      
-    </nav>
-    <div class="hotel-layout">
-      <div class="hotel-hero-img">
-        
-      </div>
-      <div class="hotel-container">
-        <div class="main">
-          <div class="hotel-details">
-            <div class="hotel-info">
-              <h1 class="hotel-name">
-                <%= hotel.name %>
-              </h1>
-              <span class="hotel-address"
-                >
-                <%= hotel.address %>
-                </span
-              >
-              <span class="hotel-number"
-                >
-                <%= hotel.contact %>
-                </span
-              >
+            <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
+    </ul>
 
-            </div>
-            <div class="hotel-rating">
-              <span class="rating"><i class="fa fa-star"></i> <%= hotel.rating %> </span>
-            </div>
+  </nav>
+  <div class="hotel-layout">
+    <div class="hotel-hero-img">
+
+    </div>
+    <div class="hotel-container">
+      <div class="main">
+        <div class="hotel-details">
+          <div class="hotel-info">
+            <h1 class="hotel-name">
+              <%= hotel.name %>
+            </h1>
+            <span class="hotel-address">
+              <%= hotel.address %>
+            </span>
+            <span class="hotel-number">
+              <%= hotel.contact %>
+            </span>
+
           </div>
-          <div class="hotel-content">
-            <h3 class="description">Description</h3>
-            <p>
-                <b> <%= hotel.name %>  </b>is a boutique hotel in <b> <%= hotel.city %>.</b>
-              Located at <i><%=hotel.address %></i>, this
-              hotel has a parking facility and an in-house restaurant.
-            </p>
-            <h3 class="amenities-heading">Amenities</h3>
-            <div class="amenities">
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> wifi </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-wifi" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Free wifi </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Modern wardrobe </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-bed" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> King Sized Bed </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-snowflake-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> AC </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Attached Washroom </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-television" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> TV </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-shower" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Geyser </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Elevator </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-thermometer-half" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Room Heater </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-home" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> In-house restaurant </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-camera-retro" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Banquet hall </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Bedside Table / Desk </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> 24/7 check-in </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-motorcycle" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Bike Rentals </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Dress Hanger </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Bidet/Washlet </span>
-              </div>
-              <div class="amenities-item">
-                <span class="amenities-icon">
-                  <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                </span>
-                <span class="amenities-name"> Iron </span>
-              </div>
+          <div class="hotel-rating">
+            <span class="rating"><i class="fa fa-star"></i>
+              <%= hotel.rating %>
+            </span>
+          </div>
+        </div>
+        <div class="hotel-content">
+          <h3 class="description">Description</h3>
+          <p>
+            <b>
+              <%= hotel.name %>
+            </b>is a boutique hotel in <b>
+              <%= hotel.city %>.
+            </b>
+            Located at <i>
+              <%=hotel.address %>
+            </i>, this
+            hotel has a parking facility and an in-house restaurant.
+          </p>
+          <h3 class="amenities-heading">Amenities</h3>
+          <div class="amenities">
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> wifi </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-wifi" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Free wifi </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Modern wardrobe </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-bed" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> King Sized Bed </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> AC </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Attached Washroom </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-television" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> TV </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-shower" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Geyser </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Elevator </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Room Heater </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-home" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> In-house restaurant </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-camera-retro" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Banquet hall </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Bedside Table / Desk </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> 24/7 check-in </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-motorcycle" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Bike Rentals </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Dress Hanger </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Bidet/Washlet </span>
+            </div>
+            <div class="amenities-item">
+              <span class="amenities-icon">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              </span>
+              <span class="amenities-name"> Iron </span>
             </div>
           </div>
         </div>
-        <div class="sidebar">
-          <div class="hero-img">
-            <img
-              src="static/<%= hotel.image %>"
-              alt="Flexbox Feature"
-              class="hotel-img"
-            />
-          </div>
-          <div class="hotel-price">
-            <span class="price"><%= hotel.price %></span>
-          </div>
-          <ul class="hotel-popular-facilities">
-            <li class="popular-facilities-item"><span><i class="fa fa-home" aria-hidden="true"></i></span>Family Rooms</li>
-            <li class="popular-facilities-item"><span><i class="fa fa-bed" aria-hidden="true"></i>
+      </div>
+      <div class="sidebar">
+        <div class="hero-img">
+          <img src="static/<%= hotel.image %>" alt="Flexbox Feature" class="hotel-img" />
+        </div>
+        <div class="hotel-price">
+          <span class="price">
+            <%= hotel.price %>
+          </span>
+        </div>
+        <ul class="hotel-popular-facilities">
+          <li class="popular-facilities-item"><span><i class="fa fa-home" aria-hidden="true"></i></span>Family Rooms
+          </li>
+          <li class="popular-facilities-item"><span><i class="fa fa-bed" aria-hidden="true"></i>
             </span>Room service</li>
-            <li class="popular-facilities-item"><span><i class="fa fa-car" aria-hidden="true"></i>
+          <li class="popular-facilities-item"><span><i class="fa fa-car" aria-hidden="true"></i>
             </span>Free parking</li>
-            <li class="popular-facilities-item"><span><i class="fa fa-universal-access" aria-hidden="true"></i>
+          <li class="popular-facilities-item"><span><i class="fa fa-universal-access" aria-hidden="true"></i>
             </span>Fitness centre</li>
+        </ul>
+        <div class="book-now">
+          <ul>
+            <li>
+              <a href="book">BOOK NOW</a>
+            </li>
           </ul>
-          <div class="book-now">
-            <ul>
-              <li>
-                <a href="book">BOOK NOW</a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <style>
-      .hotel-img {
-        width: 100%;
-      }
+  <style>
+    .hotel-img {
+      width: 100%;
+    }
 
-      .main {
-        width: 68%;
-        float: left;
-        padding: 20px;
-        margin: 10px; /* background: #2b34670f; */
-        border: 1px solid #eee;
-        border-radius: 6px;
-      }
+    .main {
+      width: 68%;
+      float: left;
+      padding: 20px;
+      margin: 10px;
+      /* background: #2b34670f; */
+      border: 1px solid #eee;
+      border-radius: 6px;
+    }
 
-      .hotel-container {
-        margin: auto 4%;
-      }
+    .hotel-container {
+      margin: auto 4%;
+    }
 
-      .sidebar {
-        float: right;
-        width: 28%;
-        padding: 20px;
-        margin: 10px;
-        /* background: #eee; */
-        text-align: center;
-      }
+    .sidebar {
+      float: right;
+      width: 28%;
+      padding: 20px;
+      margin: 10px;
+      /* background: #eee; */
+      text-align: center;
+    }
 
-      h1.hotel-name {
-        color: #252525;
-        padding: 10px 0px;
-        text-align: left;
-        text-transform: capitalize;
-      }
+    h1.hotel-name {
+      color: #252525;
+      padding: 10px 0px;
+      text-align: left;
+      text-transform: capitalize;
+    }
 
-      span.hotel-address {
-        color: #0000007d;
-        padding: 10px 5px;
-        text-transform: capitalize;
-      }
+    span.hotel-address {
+      color: #0000007d;
+      padding: 10px 5px;
+      text-transform: capitalize;
+    }
 
-      .hotel-details {
-        display: flex;
-        margin: 0 0 20px 0;
-        justify-content: space-between;
-      }
+    .hotel-details {
+      display: flex;
+      margin: 0 0 20px 0;
+      justify-content: space-between;
+    }
 
-      .hotel-info {
-        /* display: flex; */
-      }
+    .hotel-info {
+      /* display: flex; */
+    }
 
-      .hotel-rating {
-        padding: 10px;
-        font-size: 30px;
-      }
+    .hotel-rating {
+      padding: 10px;
+      font-size: 30px;
+    }
 
-      p {
-      }
+    p {}
 
-      .hotel-content p {
-        color: #252525;
-        text-align: left;
-        padding: 10px;
-      }
+    .hotel-content p {
+      color: #252525;
+      text-align: left;
+      padding: 10px;
+    }
 
-      .amenities {
-        display: flex;
-        padding: 5px 10px;
-        flex-wrap: wrap;
-      }
+    .amenities {
+      display: flex;
+      padding: 5px 10px;
+      flex-wrap: wrap;
+    }
 
-      .hotel-price {
-        /* font-size: 26px; */
-        /* background: #FF5722; */
-      }
+    .hotel-price {
+      /* font-size: 26px; */
+      /* background: #FF5722; */
+    }
 
-      span.price {
-        font-size: 26px;
-        /* background: #FF5722; */
-        border-radius: 20px;
-        padding: 10px;
-        display: block;
-        text-align: left;
-        font-weight: 900;
-      }
+    span.price {
+      font-size: 26px;
+      /* background: #FF5722; */
+      border-radius: 20px;
+      padding: 10px;
+      display: block;
+      text-align: left;
+      font-weight: 900;
+    }
 
-      .book-now {
-        padding: 10px;
-        border: 1px solid #2b3467;
-        background: #ff5722;
-        border-radius: 6px;
-      }
+    .book-now {
+      padding: 10px;
+      border: 1px solid #2b3467;
+      background: #ff5722;
+      border-radius: 6px;
+    }
 
-      .book-now p {
-        color: #252525;
-        font-weight: 900;
-      }
-      h3.amenities-heading {
-    margin: 20px 0 0 0;
-}
-      .amenities-item {
-        display: flex;
-        width: 33%;
-        align-items: center;
-        margin: 18px 0 0 0;
-        /* justify-content: center; */
-      }
+    .book-now p {
+      color: #252525;
+      font-weight: 900;
+    }
 
-      span.amenities-icon {
-        margin: 0 10px 0 0;
-      }
-      li.popular-facilities-item {
-    text-align: left;
-    margin: 10px 0;
-    font-size: 16px;
-}
-      /* Media Queries */
-      /* Mobile Devices - Phones/Tablets */
+    h3.amenities-heading {
+      margin: 20px 0 0 0;
+    }
 
-      @media only screen and (max-width: 720px) {
-      }
-    </style>
-  </body>
+    .amenities-item {
+      display: flex;
+      width: 33%;
+      align-items: center;
+      margin: 18px 0 0 0;
+      /* justify-content: center; */
+    }
+
+    span.amenities-icon {
+      margin: 0 10px 0 0;
+    }
+
+    li.popular-facilities-item {
+      text-align: left;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    /* Media Queries */
+    /* Mobile Devices - Phones/Tablets */
+
+    @media only screen and (max-width: 720px) {}
+  </style>
+</body>
+
 </html>

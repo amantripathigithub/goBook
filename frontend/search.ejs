@@ -1,422 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>goBook - Book your room now</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- change -->
-    <input
-      type="hidden"
-      id="blank3"
-      name="city_list"
-      placeholder="<%= city_data %>"
-    />
 
-    <nav>
-      <input type="checkbox" id="check" />
-      <label for="check" class="checkbtn">
-        <i class="fa fa-bars"></i>
-      </label>
-      <label class="logox"><a href="/">goBook</a></label>
-      <ul>
-        <li><a class="activex" href="#">Home</a></li>
-        
-        <li><a href="about">About</a></li>
-        
-        <li><a href="#">Services</a></li>
-        <li><a class="signup" href="signup.html">Sign up</a></li>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>goBook - Book your room now</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+</head>
 
-        <% if (fl === 0) { %>
+<body>
+  <!-- change -->
+  <input type="hidden" id="blank3" name="city_list" placeholder="<%= city_data %>" />
 
-          <li><a class="login"  id = "login" href="signin.html">Login</a></li>
-         
-         
-         
-         
-          <%} else { %>
-            <form action="/myaccount" method="post">
-            <li>  <input class="myaccount" type="submit" value="My Account" name="submit" /> </li>
+  <nav>
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <i class="fa fa-bars"></i>
+    </label>
+    <label class="logox"><a href="/">goBook</a></label>
+    <ul>
+      <li><a class="activex" href="#">Home</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a class="signup" href="signup.html">Sign up</a></li>
+
+      <% if (fl===0) { %>
+
+        <li><a class="login" id="login" href="signin.html">Login</a></li>
+
+        <%} else { %>
+          <form action="/myaccount" method="post">
+            <li> <input class="myaccount" type="submit" value="My Account" name="submit" /> </li>
             <!-- <li><a class="login" id = "myaccount" href="./myaccount.html">My Account</a></li> -->
           </form>
           <% } %>
 
+            <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
+    </ul>
 
+  </nav>
 
-       
-        
-        <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
-      </ul>
-      
-    </nav>
+  <form action="/hotel" method="post">
+    <input type="hidden" id="blank" name="query2" />
+    <input type="submit" id="blank2" onclick="fun2()" name="blank" hidden="hidden" />
+  </form>
 
-    <form action="/hotel" method="post">
-      <input type="hidden" id="blank" name="query2" />
-      <input
-        type="submit"
-        id="blank2"
-        onclick="fun2()"
-        name="blank"
-        hidden="hidden"
-      />
+  <section class="headline">
+    <h1>Over 9,000 hotels and homes across 6 countries</h1>
+    <form class="search-form" autocomplete="off" action="/search" method="post">
+      <input type="text" id="q" name="query" placeholder="Search by city" onKeyUp="showResults(this.value)" />
+      <input type="submit" class="search-btn" value="Search" name="submit" />
     </form>
+    <div id="result"></div>
+  </section>
+  <section class="hotelList">
+    <% if(hotel!=null) { %>
+      <% hotel.forEach(function(hotel){ %>
+        <div class="hotelList-container">
+          <div class="hotelList-img">
+            <img src="static/<%= hotel.image %>" alt="Flexbox Feature" width="200" height="250" />
+          </div>
+          <div class="hotelList-info">
+            <div class="hotel-info">
+              <h2 class="hotel-name">
+                <!-- changes -->
 
-    <section class="headline">
-      <h1>Over 9,000 hotels and homes across 6 countries</h1>
-      <form
-        class="search-form"
-        autocomplete="off"
-        action="/search"
-        method="post"
-      >
-        <input
-          type="text"
-          id="q"
-          name="query"
-          placeholder="Search by city"
-          onKeyUp="showResults(this.value)"
-        />
-        <input type="submit" class="search-btn" value="Search" name="submit" />
-      </form>
-      <div id="result"></div>
-    </section>
-    <section class="hotelList">
-      <% if(hotel!=null) { %> <% hotel.forEach(function(hotel){ %>
-      <div class="hotelList-container">
-        <div class="hotelList-img">
-          <img
-            src="static/<%= hotel.image %>"
-            alt="Flexbox Feature"
-            width="200"
-            height="250"
-          />
-        </div>
-        <div class="hotelList-info">
-          <div class="hotel-info">
-            <h2 class="hotel-name">
-              <!-- changes -->
-
-              <button
-                id="name_hotel"
-                value="<%= hotel.name %>"
-                onclick="fun(this)"
-              >
-                <%= hotel.name %>
-              </button>
-              <!-- <a href="hotel_link"><%= hotel.name %></a> -->
-            </h2>
-            <!-- <h2 class="hotel-name">
+                <button id="name_hotel" value="<%= hotel.name %>" onclick="fun(this)">
+                  <%= hotel.name %>
+                </button>
+                <!-- <a href="hotel_link"><%= hotel.name %></a> -->
+              </h2>
+              <!-- <h2 class="hotel-name">
               <a href="hotel_link"><%= hotel.name %></a>
             </h2> -->
-            <span class="rating"
-              ><i class="fas fa-star"></i> <%= hotel.rating %></span
-            >
-          </div>
-          <span class="hotel-address"><%= hotel.address %></span>
-          <div class="hotel-price">
-            <span class="hotelList-price"><%= hotel.price %></span
-            ><span class="hotel-price-tag"> - room per night</span>
+              <span class="rating"><i class="fas fa-star"></i>
+                <%= hotel.rating %>
+              </span>
+            </div>
+            <span class="hotel-address">
+              <%= hotel.address %>
+            </span>
+            <div class="hotel-price">
+              <span class="hotelList-price">
+                <%= hotel.price %>
+              </span><span class="hotel-price-tag"> - room per night</span>
+            </div>
           </div>
         </div>
-      </div>
-      <% }) %> <% } %>
-    </section>
+        <% }) %>
+          <% } %>
+  </section>
 
-    <style>
-     
-      /*Search Bar*/
-      form.search-form {
-        padding: 20px 0 0 0;
-        text-align: center;
-        width: 100%;
+  <style>
+    /*Search Bar*/
+    form.search-form {
+      padding: 20px 0 0 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .search-form input[type="text"] {
+      width: 35%;
+      padding: 12px;
+      border-radius: 20px;
+      background: #eeee;
+      color: #252525;
+      border: 0;
+      outline: 0;
+    }
+
+    .search-form .search-btn {
+      width: 15%;
+      padding: 12px;
+      border-radius: 20px;
+      border: 0;
+      outline: 0;
+      font-weight: 900;
+      cursor: pointer;
+      background: #bad7e9;
+    }
+
+    .search-form .search-btn:hover {
+      background: #eb455f;
+      color: #ffffff;
+    }
+
+    input[type="text"]:focus-visible {
+      border: 1px solid #ff5722;
+      outline: 0;
+    }
+
+    /* for search bar result */
+    #result {
+      border: 1px dotted #000000;
+      background: #eee;
+      color: #5b5b5b;
+      width: 32%;
+      margin: 0 auto;
+      position: relative;
+      left: -120px;
+      border-radius: 5px;
+      display: flex;
+      scroll-behavior: smooth;
+      overflow: auto;
+      max-height: 100px;
+    }
+
+    #list1 li {
+      padding: 8px 8px 8px 5px;
+      border-bottom: 1px solid #3333;
+      display: block;
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+
+    ul#list1 {
+      width: 100%;
+    }
+
+    #result ul li:hover {
+      background: #33333333;
+    }
+
+    /* SECTIONS */
+    .headline {
+      width: 100%;
+      height: 20vh;
+      min-height: 230px;
+      background: #2b3467;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hotelList {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      height: auto;
+      background-color: #ffffff;
+      padding: 50px 20px;
+      justify-content: center;
+      gap: 2%;
+    }
+
+    .hotelList-container {
+      width: 30%;
+      margin-top: 10px;
+    }
+
+    .hotelList-container p {
+      color: #000;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .hotelList-container img {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .hotel-name a {
+      text-align: left;
+      font-size: 16px;
+      color: #000;
+      text-transform: capitalize;
+    }
+
+    span.hotel-address {
+      color: #222222a8;
+    }
+
+    .hotel-price {
+      margin: 10px 0 0 0;
+    }
+
+    .hotel-info {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .rating {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* Media Queries */
+    /* Mobile Devices - Phones/Tablets */
+
+    @media only screen and (max-width: 720px) {
+      label.logox {
+        font-size: 30px;
+        margin-left: 40px;
       }
 
-      .search-form input[type="text"] {
-        width: 35%;
-        padding: 12px;
-        border-radius: 20px;
-        background: #eeee;
-        color: #252525;
-        border: 0;
-        outline: 0;
-      }
-
-      .search-form .search-btn {
-        width: 15%;
-        padding: 12px;
-        border-radius: 20px;
-        border: 0;
-        outline: 0;
-        font-weight: 900;
-        cursor: pointer;
-        background: #bad7e9;
-      }
-      .search-form .search-btn:hover {
-        background: #eb455f;
-        color: #ffffff;
-      }
-      input[type="text"]:focus-visible {
-        border: 1px solid #ff5722;
-        outline: 0;
-      }
-        /* for search bar result */
-        #result {
-        border: 1px dotted #000000;
-        background: #eee;
-        color: #5b5b5b;
-        width: 32%;
-        margin: 0 auto;
-        position: relative;
-        left: -120px;
-        border-radius: 5px;
-        display: flex;
-        scroll-behavior: smooth;
-        overflow: auto;
-        max-height: 100px;
-      }
-      #list1 li {
-        padding: 8px 8px 8px 5px;
-        border-bottom: 1px solid #3333;
-        display: block;
-        text-transform: capitalize;
-        cursor: pointer;
-      }
-      ul#list1 {
-        width: 100%;
-      }
-
-      #result ul li:hover {
-        background: #33333333;
-      }
-
-      /* SECTIONS */
-      .headline {
-        width: 100%;
-        height: 20vh;
-        min-height: 230px;
-        background: #2b3467;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+      nav ul li a {
+        font-size: 16px;
       }
 
       .hotelList {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        height: auto;
-        background-color: #ffffff;
-        padding: 50px 20px;
-        justify-content: center;
-        gap: 2%;
+        flex-direction: column;
+        padding: 50px;
       }
 
-      .hotelList-container {
-        width: 30%;
-        margin-top: 10px;
+      /* MOBILE HEADINGS */
+
+      h1 {
+        font-size: 1.9rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+
+      /* MOBILE NAVIGATION */
+      .checkbtn {
+        display: block;
+      }
+
+      ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all 0.5s;
+      }
+
+      nav ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+      }
+
+      nav ul li a {
+        font-size: 20px;
+      }
+
+      a:hover,
+      a.activex {
+        background: none;
+        color: #0082e6;
+      }
+
+      #check:checked~ul {
+        left: 0;
+      }
+
+      /* SECTIONS */
+
+      .headline {
+        height: 20vh;
       }
 
       .hotelList-container p {
-        color: #000;
-        text-align: center;
-        line-height: 1.4;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
       }
 
-      .hotelList-container img {
-        width: 100%;
-        margin-bottom: 5px;
+      .hotelList-container {
+        margin-top: 20px;
       }
 
-      .hotel-name a {
-        text-align: left;
-        font-size: 16px;
-        color: #000;
-        text-transform: capitalize;
+      .hotelList-container:nth-child(2) {
+        order: -1;
       }
-      span.hotel-address {
-        color: #222222a8;
+    }
+  </style>
+  <script>
+    function fun(element) {
+      document.getElementById("blank").value = element.value;
+      //console.log(document.getElementById("blank").value);
+      document.getElementById("blank2").click();
+    }
+
+    var search_t = document.getElementById("blank3").placeholder;
+    //console.log(search_terms);
+    // var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
+    var search_terms = search_t.split(",");
+    search_terms = fun3(search_terms);
+
+    function fun3(arr) {
+      var unique = arr.reduce(function (acc, curr) {
+        if (!acc.includes(curr)) acc.push(curr);
+        return acc;
+      }, []);
+      return unique;
+    }
+
+    function autocompleteMatch(input) {
+      if (input == "") {
+        return [];
       }
+      var reg = new RegExp(input);
+      return search_terms.filter(function (term) {
+        if (term.match(reg)) {
+          return term;
+        }
+      });
+    }
 
-      .hotel-price {
-        margin: 10px 0 0 0;
+    function showResults(val) {
+      res = document.getElementById("result");
+      res.innerHTML = "";
+      let list = "";
+      let terms = autocompleteMatch(val);
+      for (i = 0; i < terms.length; i++) {
+        list += "<li id=" + terms[i] + ">" + terms[i] + "</li>";
       }
-      .hotel-info {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 0 4px;
-      }
-      .rating {
-        font-size: 14px;
-        font-weight: 700;
-      }
+      res.innerHTML = '<ul id="list1" >' + list + "</ul>";
 
-      /* Media Queries */
-      /* Mobile Devices - Phones/Tablets */
+      // after it
+      var lis = document.getElementById("list1").getElementsByTagName("li");
 
-      @media only screen and (max-width: 720px) {
-        label.logox {
-          font-size: 30px;
-          margin-left: 40px;
-        }
-        nav ul li a {
-          font-size: 16px;
-        }
-        .hotelList {
-          flex-direction: column;
-          padding: 50px;
-        }
-
-        /* MOBILE HEADINGS */
-
-        h1 {
-          font-size: 1.9rem;
-        }
-
-        h2 {
-          font-size: 1rem;
-        }
-
-        p {
-          font-size: 0.8rem;
-        }
-
-        /* MOBILE NAVIGATION */
-        .checkbtn {
-          display: block;
-        }
-        ul {
-          position: fixed;
-          width: 100%;
-          height: 100vh;
-          background: #2c3e50;
-          top: 80px;
-          left: -100%;
-          text-align: center;
-          transition: all 0.5s;
-        }
-        nav ul li {
-          display: block;
-          margin: 50px 0;
-          line-height: 30px;
-        }
-        nav ul li a {
-          font-size: 20px;
-        }
-        a:hover,
-        a.activex {
-          background: none;
-          color: #0082e6;
-        }
-        #check:checked ~ ul {
-          left: 0;
-        }
-
-        /* SECTIONS */
-
-        .headline {
-          height: 20vh;
-        }
-
-        .hotelList-container p {
-          margin-bottom: 25px;
-        }
-
-        .hotelList-container {
-          margin-top: 20px;
-        }
-
-        .hotelList-container:nth-child(2) {
-          order: -1;
-        }
-      }
-    </style>
-    <script>
-      function fun(element) {
-        document.getElementById("blank").value = element.value;
-        //console.log(document.getElementById("blank").value);
-        document.getElementById("blank2").click();
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].addEventListener("click", doStuff, false);
       }
 
-      var search_t = document.getElementById("blank3").placeholder;
-      //console.log(search_terms);
-      // var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
-      var search_terms = search_t.split(",");
-      search_terms = fun3(search_terms);
-
-      function fun3(arr) {
-        var unique = arr.reduce(function (acc, curr) {
-          if (!acc.includes(curr)) acc.push(curr);
-          return acc;
-        }, []);
-        return unique;
+      function doStuff() {
+        var te = document.getElementById("q");
+        te.value = this.id;
       }
 
-      function autocompleteMatch(input) {
-        if (input == "") {
-          return [];
-        }
-        var reg = new RegExp(input);
-        return search_terms.filter(function (term) {
-          if (term.match(reg)) {
-            return term;
-          }
-        });
-      }
+      // document.getElementById("list1").addEventListener("click",function(e) {
+      //         // e.target is our targetted element.
+      //                     // try doing console.log(e.target.nodeName), it will result LI
+      //                     if(e.target && e.target.nodeName == "LI") {
+      //             console.log(e.id + " was clicked");
+      //                     }
+      //     });
 
-      function showResults(val) {
-        res = document.getElementById("result");
-        res.innerHTML = "";
-        let list = "";
-        let terms = autocompleteMatch(val);
-        for (i = 0; i < terms.length; i++) {
-          list += "<li id=" + terms[i] + ">" + terms[i] + "</li>";
-        }
-        res.innerHTML = '<ul id="list1" >' + list + "</ul>";
+      // var ul = document.getElementById("list1");
 
-        // after it
-        var lis = document.getElementById("list1").getElementsByTagName("li");
+      // var listItems = ul.getElementsByTagName("li");
+      // var te=document.getElementById("q");
+      // for(li of  listItems){
+      //   li.addEventListener('click', function(){
+      //     var val=li.id;
+      //     //val=val.substring(4,val.length-5);
 
-        for (var i = 0; i < lis.length; i++) {
-          lis[i].addEventListener("click", doStuff, false);
-        }
+      //     te.value=li.id;
+      // console.log(li);
 
-        function doStuff() {
-          var te = document.getElementById("q");
-          te.value = this.id;
-        }
+      //   })
+      // }
 
-        // document.getElementById("list1").addEventListener("click",function(e) {
-        //         // e.target is our targetted element.
-        //                     // try doing console.log(e.target.nodeName), it will result LI
-        //                     if(e.target && e.target.nodeName == "LI") {
-        //             console.log(e.id + " was clicked");
-        //                     }
-        //     });
+      // console.log(list);
+    }
+  </script>
+</body>
 
-        // var ul = document.getElementById("list1");
-
-        // var listItems = ul.getElementsByTagName("li");
-        // var te=document.getElementById("q");
-        // for(li of  listItems){
-        //   li.addEventListener('click', function(){
-        //     var val=li.id;
-        //     //val=val.substring(4,val.length-5);
-
-        //     te.value=li.id;
-        // console.log(li);
-
-        //   })
-        // }
-
-        // console.log(list);
-      }
-    </script>
-  </body>
 </html>
