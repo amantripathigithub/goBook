@@ -49,7 +49,6 @@ var port = 3000;
 
 
 
-
 app.get("/", async (req, res) => {
 
 // for checking for user login or not
@@ -438,9 +437,32 @@ app.post("/signinhotel", async function(req, res){
 });
 
 
-app.get("/about",auth, (req, res) => {
+app.get("/about", async (req, res) => {
+
+    fl=0;
+
+
+    try{
+        
+       
+       
+        const token = req.cookies.jwt;   
+        
+        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
+        
+        //console.log(varifyUser);
+        const user = await register.findOne({_id:varifyUser._id});
+        //console.log("heyyy");
+        //console.log(user);
+        fl=1;
+
+    } catch(error){
+        fl=0;
+        
+    }
+
     app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/about.html"));
+    res.render(path.join(__dirname, "../frontend", "/about.ejs"),{fl:fl});
 });
 
 

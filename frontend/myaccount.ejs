@@ -9,11 +9,11 @@
         <%= user.name %> My Account
     </title>
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
     <link rel="stylesheet" href="style.css" />
-    
+
 </head>
 
 <body>
@@ -26,7 +26,7 @@
         <ul>
             <li><a class="activex" href="#">Home</a></li>
 
-            <li><a href="about">About</a></li>
+            <li><a href="about">Click ME</a></li>
 
             <li><a href="#">Services</a></li>
 
@@ -64,7 +64,7 @@
                         <div class="logout-btn">
                             <!-- <a href="/" class="edit">Logout</a> -->
                             <form action="/logout" method="post">
-                          <input class="edit" type="submit" value="LogOut" name="submit" /> 
+                                <input class="logout" type="submit" value="LogOut" name="submit" />
                         </div>
                     </div>
                 </div>
@@ -172,6 +172,14 @@
         input:focus-visible {
             border: 1px solid #eee;
             outline: 0;
+        }
+
+        .logout {
+            margin: 0 0 0 10px;
+            background: transparent;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
         }
     </style>
 </body>
