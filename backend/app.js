@@ -46,92 +46,74 @@ app.use(bodyParser.json());
 
 var port = 3000;
 
-app.get("/", (req, res) => {
+
+
+
+app.get("/", async (req, res) => {
+
+
+
+    const hotel= await Hotel.find({});
+
+
+    // change for search bar
+    const city_data=[];
+    for( i=0;i<hotel.length;i++){
+        city_data.push(hotel[i].city);
+    }
     app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/signin.html"));
+    res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
+
 });
- /*
-app.post("/" , function(req,res){
-    email=req.body.email;
-    pasws=req.body.psw;
 
 
 
+// app.post("/", async function(req, res){
+//     try {
+//         // check if the user exists
+//         const user = await User.findOne({ email: req.body.email });
+//         if (user) {
+//           //check if password matches
+//           const result = req.body.psw === user.password;
+// // for token    ---->>>>
+//           const token = await user.generateAuthToken();
+//           //console.log("the token part" + token);
+//           res.cookie("jwt", token, {
+//               expires: new Date(Date.now() + 20000),
+//               httpOnly: true
+//               //secure:true
+//           });
 
-   
-    User.findOne({email:email})
-    .then((userExist)=>{
-        if(userExist){
+// // yaha tak ---->>>>>>
 
-        console.log("exist");
-        User.find({}, function(err,User) {
-            if (err) throw err;
-            // object of all the users
-            console.log("ok");
-            res.render('index',{User:User});
-        });}
-        else{
-            console.log("not exist"); 
-        }
-     
-    }).catch(err => {"error"});
-
-
-
-
-   // console.log(req.body);
-    res.json({message:req.body});
-
-    
-});
-*/
-
-app.post("/", async function(req, res){
-    try {
-        // check if the user exists
-        const user = await User.findOne({ email: req.body.email });
-        if (user) {
-          //check if password matches
-          const result = req.body.psw === user.password;
-// for token    ---->>>>
-          const token = await user.generateAuthToken();
-          //console.log("the token part" + token);
-          res.cookie("jwt", token, {
-              expires: new Date(Date.now() + 100000),
-              httpOnly: true
-              //secure:true
-          });
-
-// yaha tak ---->>>>>>
-
-          if (result) {
-            //changes are here
-        const hotel= await Hotel.find({});
+//           if (result) {
+//             //changes are here
+//         const hotel= await Hotel.find({});
 
 
-// change for search bar
-const city_data=[];
-for( i=0;i<hotel.length;i++){
-    city_data.push(hotel[i].city);
-}
+// // change for search bar
+// const city_data=[];
+// for( i=0;i<hotel.length;i++){
+//     city_data.push(hotel[i].city);
+// }
     
 
-            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
-           //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
-          } else {
-           // if password not match
-           return res.json({error: "invalid details !!"});
-         }
-        } else {
+//             res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
+//            //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
+//           } else {
+//            // if password not match
+//            return res.json({error: "invalid details !!"});
+//          }
+//         } else {
 
-            // if user email is not exist 
-            res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
+//             // if user email is not exist 
+//             res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
 
-        }
-      } catch (error) {
-        res.status(400).json({ error });
-      }
-});
+//         }
+//       } catch (error) {
+//         res.status(400).json({ error });
+//       }
+// });
 
 // for search page
 
