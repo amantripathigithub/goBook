@@ -154,7 +154,7 @@ app.get("/search", async (req, res) => {
 
     try{
         
-        
+
        
        
         const token = req.cookies.jwt;   
@@ -187,6 +187,40 @@ for( i=0;i<hotel2.length;i++){
     city_data.push(hotel2[i].city);
 }
     res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel,city_data:city_data});
+
+
+});
+
+
+// for my account
+
+app.post("/myaccount", async function(req, res){
+    var user;
+    try{
+        
+       
+       
+        const token = req.cookies.jwt;   
+        
+        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
+        
+        //console.log(varifyUser);
+         user = await register.findOne({_id:varifyUser._id});
+        //console.log("heyyy");
+        //console.log(typeof(user.email));
+        //email=user.email;
+        //res.render(path.join(__dirname,"../frontend", "/myaccount.ejs",{email:user.email}));
+        
+
+
+    } catch(error){
+        console.log("problem hai");
+        
+    }
+    
+
+    res.render(path.join(__dirname,"../frontend", "/myaccount.ejs"),{user:user});
+
 
 
 });
@@ -232,60 +266,7 @@ app.post("/hotel", async function(req, res){
 
 });
 
-// for signup page
 
-
-
-
-app.get("/signup", (req, res) => {
-    app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
-});
-
-
-
-
-app.post('/signup',(req,res)=>{
-    const email=req.body.email;
-    const password=req.body.password;
-    const cpassword=req.body.cpassword;
-    
-
-    if(!email || !password || !cpassword){
-        
-        return res.json({error: "fill properly!!"});
-
-    }
-    if(password!=cpassword){
-        
-        return res.json({error: "password not match!!"});
-    }
-
-    User.findOne({email:email,password:password})
-    .then(async (userExist)=>{
-        if(userExist)
-        return res.status(422).json({ error :"email exists already"});
-        
-        const user = new User({email:email,password:password});
-
-
-        user.save().then(() => {
-            res.status(201).json({message: "registered !! "});
-        }).catch((err) => res.status(500).json({error: "failed to register !! "}));
-
-
-    }).catch(err => {console.log(err); });
-
-    //console.log(req.body);
-    //res.json({message:req.body});
-});
-
-
-
-
-// for hotal signup page
-
-// for image 
 
 app.use(express.static('../frontend/static'));
 
@@ -305,6 +286,69 @@ var upload = multer({
 }).single('file');
 
 
+
+
+// for signup page
+
+
+
+
+app.get("/signup", (req, res) => {
+    app.use(express.static("../frontend"));
+    res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
+});
+
+
+
+
+app.post('/signup',upload,(req,res)=>{
+    const email=req.body.email;
+    const password=req.body.password;
+    const cpassword=req.body.cpassword;
+    const name = req.body.name;
+    const contact = req.body.contact;
+    const image = req.file.filename;
+
+    if(!email || !password || !cpassword){
+        
+        return res.json({error: "fill properly!!"});
+
+    }
+    if(password!=cpassword){
+        
+        return res.json({error: "password not match!!"});
+    }
+
+
+    con=String(contact);
+    if(con.length!=10)
+        return res.json({error:"not a valid number"});
+
+    User.findOne({email:email,password:password})
+    .then(async (userExist)=>{
+        if(userExist)
+        return res.status(422).json({ error :"email exists already"});
+        
+        const user = new User({name:name,email:email,password:password,contact:contact,image:image});
+
+
+        user.save().then(() => {
+            res.status(201).json({message: "registered !! "});
+        }).catch((err) => res.status(500).json({error: "failed to register !! "}));
+
+
+    }).catch(err => {console.log(err); });
+
+    //console.log(req.body);
+    //res.json({message:req.body});
+});
+
+
+
+
+// for hotal signup page
+
+// for image 
 
 
 

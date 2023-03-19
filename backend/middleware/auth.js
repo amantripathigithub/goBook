@@ -8,7 +8,7 @@ const auth = async(req,res,next)=>{
         const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
         //console.log(varifyUser);
         const user = await register.findOne({_id:varifyUser._id})
-        //console.log(user);
+        
         next();
 
     } catch(error){
