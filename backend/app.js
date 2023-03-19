@@ -451,6 +451,32 @@ app.get("/book",auth, (req, res) => {
 
 
 
+////////////////////////
+app.post("/logout",auth, async function(req, res){
+    try{
+        res.clearCookie("jwt");
+        fl=0;
+    const hotel= await Hotel.find({});
+
+
+
+    // change for search bar
+    const city_data=[];
+    for( i=0;i<hotel.length;i++){
+        city_data.push(hotel[i].city);
+    }
+    app.use(express.static("../frontend"));
+    res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,flag:fl});
+     
+    } catch(error){
+        res.status(500).send(error);
+    }
+});
+
+
+
+
+
 app.listen(port, () => {
  console.log("Server listening on port " + port);
 });
