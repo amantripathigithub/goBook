@@ -68,52 +68,52 @@ app.get("/", async (req, res) => {
 
 
 
-// app.post("/", async function(req, res){
-//     try {
-//         // check if the user exists
-//         const user = await User.findOne({ email: req.body.email });
-//         if (user) {
-//           //check if password matches
-//           const result = req.body.psw === user.password;
-// // for token    ---->>>>
-//           const token = await user.generateAuthToken();
-//           //console.log("the token part" + token);
-//           res.cookie("jwt", token, {
-//               expires: new Date(Date.now() + 20000),
-//               httpOnly: true
-//               //secure:true
-//           });
+app.post("/signin", async function(req, res){
+    try {
+        // check if the user exists
+        const user = await User.findOne({ email: req.body.email });
+        if (user) {
+          //check if password matches
+          const result = req.body.psw === user.password;
+// for token    ---->>>>
+          const token = await user.generateAuthToken();
+          //console.log("the token part" + token);
+          res.cookie("jwt", token, {
+              expires: new Date(Date.now() + 20000),
+              httpOnly: true
+              //secure:true
+          });
 
-// // yaha tak ---->>>>>>
+// yaha tak ---->>>>>>
 
-//           if (result) {
-//             //changes are here
-//         const hotel= await Hotel.find({});
+          if (result) {
+            //changes are here
+        const hotel= await Hotel.find({});
 
 
-// // change for search bar
-// const city_data=[];
-// for( i=0;i<hotel.length;i++){
-//     city_data.push(hotel[i].city);
-// }
+// change for search bar
+const city_data=[];
+for( i=0;i<hotel.length;i++){
+    city_data.push(hotel[i].city);
+}
     
 
-//             res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
-//            //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
-//           } else {
-//            // if password not match
-//            return res.json({error: "invalid details !!"});
-//          }
-//         } else {
+            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
+           //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
+          } else {
+           // if password not match
+           return res.json({error: "invalid details !!"});
+         }
+        } else {
 
-//             // if user email is not exist 
-//             res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
+            // if user email is not exist 
+            res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
 
-//         }
-//       } catch (error) {
-//         res.status(400).json({ error });
-//       }
-// });
+        }
+      } catch (error) {
+        res.status(400).json({ error });
+      }
+});
 
 // for search page
 
