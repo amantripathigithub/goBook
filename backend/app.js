@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
 const fs=require('fs');
 var app = express();
+const register = require("./model/user");
 dotenv.config({path: './config.env'});
 const PORT = process.env.PORT;
 //isse connection ho jayega
@@ -51,9 +52,33 @@ var port = 3000;
 
 app.get("/", async (req, res) => {
 
+// for checking for user login or not
+fl=0;
+
+
+    try{
+        
+       
+       
+        const token = req.cookies.jwt;   
+        
+        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
+        
+        //console.log(varifyUser);
+        const user = await register.findOne({_id:varifyUser._id});
+        //console.log("heyyy");
+        //console.log(user);
+        fl=1;
+
+    } catch(error){
+        fl=0;
+        
+    }
+    
 
 
     const hotel= await Hotel.find({});
+
 
 
     // change for search bar
@@ -62,9 +87,11 @@ app.get("/", async (req, res) => {
         city_data.push(hotel[i].city);
     }
     app.use(express.static("../frontend"));
-    res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
+    res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,flag:fl});
 
 });
+
+
 
 
 
@@ -79,7 +106,7 @@ app.post("/signin", async function(req, res){
           const token = await user.generateAuthToken();
           //console.log("the token part" + token);
           res.cookie("jwt", token, {
-              expires: new Date(Date.now() + 20000),
+              expires: new Date(Date.now() + 900000),
               httpOnly: true
               //secure:true
           });
@@ -96,15 +123,16 @@ const city_data=[];
 for( i=0;i<hotel.length;i++){
     city_data.push(hotel[i].city);
 }
-    
+    fl=1;
 
-            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data});
+            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,fl:fl});
            //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
           } else {
            // if password not match
            return res.json({error: "invalid details !!"});
          }
         } else {
+
 
             // if user email is not exist 
             res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
@@ -120,9 +148,31 @@ for( i=0;i<hotel.length;i++){
 
 
 
-app.get("/search", (req, res) => {
+app.get("/search", async (req, res) => {
+    fl=0;
+
+
+    try{
+        
+        
+       
+       
+        const token = req.cookies.jwt;   
+        
+        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
+        
+        //console.log(varifyUser);
+        const user = await register.findOne({_id:varifyUser._id});
+        //console.log("heyyy");
+        //console.log(user);
+        fl=1;
+
+    } catch(error){
+        fl=0;
+        
+    }
     app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/search.ejs"));
+    res.sendFile(path.join(__dirname, "../frontend", "/search.ejs",{fl:fl}));
 });
 
 
@@ -144,9 +194,30 @@ for( i=0;i<hotel2.length;i++){
 // for hotel wala page
 
 
-app.get("/hotel", (req, res) => {
+app.get("/hotel", async (req, res) => {
+    fl=0;
+
+
+    try{
+        
+       
+       
+        const token = req.cookies.jwt;   
+        
+        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
+        
+        //console.log(varifyUser);
+        const user = await register.findOne({_id:varifyUser._id});
+        //console.log("heyyy");
+        //console.log(user);
+        fl=1;
+
+    } catch(error){
+        fl=0;
+        
+    }
     app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/hotel.ejs"));
+    res.sendFile(path.join(__dirname, "../frontend", "/hotel.ejs",{fl:fl}));
 });
 
 

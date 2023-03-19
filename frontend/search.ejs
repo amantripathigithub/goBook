@@ -28,7 +28,16 @@
         <li><a href="about">About</a></li>
         <li><a href="#">Services</a></li>
         <li><a class="signup" href="signup.html">Sign up</a></li>
-        <li><a class="login" href="signin.html">Login</a></li>
+
+        <% if (fl === 0) { %>
+          <li><a class="login"  id = "login" href="signin.html">Login</a></li>
+          <%} else { %>
+            <li><a class="login" id = "myaccount" href="myaccount.html">My Account</a></li>
+          <% } %>
+
+
+
+        
         <li><a class="reg-hotel" href="signuphotel.html">Register Hotel</a></li>
       </ul>
     </nav>
@@ -309,7 +318,7 @@
       }
 
       var search_t = document.getElementById("blank3").placeholder;
-      console.log(search_terms);
+      //console.log(search_terms);
       // var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
       var search_terms = search_t.split(",");
       search_terms = fun3(search_terms);
