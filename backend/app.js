@@ -92,6 +92,47 @@ fl=0;
 
 
 
+app.post("/", async (req, res) => {
+
+    // for checking for user login or not
+    fl=0;
+    
+    
+        try{
+            
+           
+           
+            const token = req.cookies.jwt;   
+            
+            const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
+            
+            //console.log(varifyUser);
+            const user = await register.findOne({_id:varifyUser._id});
+            //console.log("heyyy");
+            //console.log(user);
+            fl=1;
+    
+        } catch(error){
+            fl=0;
+            
+        }
+        
+    
+    
+        const hotel= await Hotel.find({});
+    
+    
+    
+        // change for search bar
+        const city_data=[];
+        for( i=0;i<hotel.length;i++){
+            city_data.push(hotel[i].city);
+        }
+        app.use(express.static("../frontend"));
+        res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,flag:fl});
+    
+    });
+    
 
 
 app.post("/signin", async function(req, res){
