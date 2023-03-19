@@ -105,7 +105,7 @@ app.post("/signin", async function(req, res){
           const token = await user.generateAuthToken();
           //console.log("the token part" + token);
           res.cookie("jwt", token, {
-              expires: new Date(Date.now() + 100000),
+              expires: new Date(Date.now() + 10000000),
               httpOnly: true
               //secure:true
           });
