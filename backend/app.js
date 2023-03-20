@@ -46,6 +46,55 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
+// for payment integration
+
+var stripe = require('stripe')('sk_test_51MnHvySBHuevM7gjiPvdcc5eAVYH6AZ7cnIVlwDM0pfB6vUxbgzXFX8HeKYxRwpIztDuFYsFxOcofE6ghLL83fU9003poyH0My');
+var Publishable_Key = 'pk_test_51MnHvySBHuevM7gjBSCCPY1G9ejS0qGvUJw1Do0T9nAUyvbeosfsv6pZ0z9I2CvXCEXgpu4OHKZRGXZ3j2ppYgvL00kLD93Mu3';
+
+
+
+app.get("/book", async(req, res) => {
+    app.use(express.static("../frontend"));
+    res.render(path.join(__dirname, "../frontend", "/book.ejs"));
+});
+
+
+app.post('/book', function(req, res){
+    // Moreover you can take more details from user
+    // like Address, Name, etc from form
+
+    stripe.customers.create({
+
+        email: req.body.stripeEmail,
+        source: req.body.stripeToken,
+        name: 'Gourav Hammad',
+        address: {
+            line1: 'TC 9/4 Old MES colony',
+            postal_code: '452331',
+            city: 'Indore',
+            state: 'Madhya Pradesh',
+            country: 'India',
+        }
+    })
+    .then((customer) => {
+ 
+        return stripe.charges.create({
+            amount: 2500,     // Charging Rs 25
+            description: 'Web Development Product',
+            currency: 'INR',
+            customer: customer.id
+        });
+    })
+    .then((charge) => {
+        res.send("Success")  // If no error occurs
+    })
+    .catch((err) => {
+        res.send(err)       // If some error occurs
+    });
+})
+
+
+
 
 
 
