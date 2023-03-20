@@ -26,10 +26,10 @@
     <label class="logox"><a href="/">goBook</a></label>
     <ul>
       <form action="/" method="post">
-        <li> <input class="activex" type="submit" value="Home" name="submit" /> </li>
-     
-    </form>
-      <li><a href="about">Click ME</a></li>
+        <li> <input class="activex home" type="submit" value="Home" name="submit" /> </li>
+
+      </form>
+      <li><a href="about">Click Me</a></li>
       <li><a href="#">Services</a></li>
       <li><a class="signup" href="signup.html">Sign up</a></li>
 
@@ -49,7 +49,7 @@
 
   </nav>
 
-  <form action="/hotel" method="post">
+  <form action="/hotel" method="post" style=" display: none; ">
     <input type="hidden" id="blank" name="query2" />
     <input type="submit" id="blank2" onclick="fun2()" name="blank" hidden="hidden" />
   </form>
@@ -90,7 +90,7 @@
               <%= hotel.address %>
             </span>
             <div class="hotel-price">
-              <span class="hotelList-price">
+              <span class="hotelList-price"> ₹
                 <%= hotel.price %>
               </span><span class="hotel-price-tag"> - room per night</span>
             </div>
@@ -174,12 +174,23 @@
     /* SECTIONS */
     .headline {
       width: 100%;
-      height: 20vh;
+      height: 22vh;
       min-height: 230px;
-      background: #aab79d;;
+      background: #408E91;
+      ;
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+
+    span.hotelList-price {
+      font-weight: 600;
+      font-size: 16px;
+      color: #ee2a24;
+    }
+
+    span.hotel-price-tag {
+      color: #333333c7;
     }
 
     .hotelList {
@@ -195,8 +206,21 @@
 
     .hotelList-container {
       width: 30%;
-      margin-top: 10px;
+      margin-top: 20px;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      border-radius: 5px;
+      transition: 0.1s ease-out;
     }
+
+    .hotelList-container:hover {
+      transform: translateY(-5px) scale(1.005) translateZ(0);
+      box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11);
+    }
+
+    .hotelList-info {
+      padding: 6px 10px;
+    }
+
 
     .hotelList-container p {
       color: #000;
@@ -234,8 +258,18 @@
     }
 
     .rating {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
+    }
+
+    button#name_hotel {
+      font-size: 1.3rem;
+      line-height: 1.4;
+      background: 0;
+      border: 0;
+      font-weight: 800;
+      margin: 5px 0;
+      cursor: pointer;
     }
 
     /* Media Queries */
