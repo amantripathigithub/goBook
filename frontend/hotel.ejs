@@ -30,8 +30,9 @@
     </form>
       <li><a href="about">Click Me</a></li>
       <li><a href="#">Services</a></li>
-      <li><a class="signup" href="signup.html">Sign up</a></li>
+     
       <% if (fl===0) { %>
+        <li><a class="signup" href="signup.html">Sign up</a></li>
         <li><a class="login" id="login" href="signin.html">Login</a></li>
         <%} else { %>
           <form action="/myaccount" method="post">
@@ -216,7 +217,10 @@
         <div class="book-now">
           <ul>
             <li>
-              <a href="book">BOOK NOW</a>
+              <form action="/bookme" method="post">
+                <input type="submit"  value="Book Now" name="submit" />
+              <!-- <a href="book">BOOK NOW</a> -->
+              </form>
             </li>
           </ul>
         </div>

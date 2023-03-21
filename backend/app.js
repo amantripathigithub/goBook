@@ -5,10 +5,10 @@ const cookieParser = require("cookie-parser");
 const cookie = require("js-cookie");
 const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
-const fs=require('fs');
+const fs = require('fs');
 var app = express();
 const register = require("./model/user");
-dotenv.config({path: './config.env'});
+dotenv.config({ path: './config.env' });
 const PORT = process.env.PORT || 3000;
 //isse connection ho jayega
 require('./db/connection');
@@ -26,7 +26,7 @@ const bodyParser = require("body-parser");
 
 const path = require("path");
 //var popup = require('popups');
-let alert = require('alert'); 
+let alert = require('alert');
 
 app.set("view engine", "ejs");
 
@@ -40,7 +40,7 @@ app.use(cookieParser());
 
 
 app.use(bodyParser.urlencoded({
-    extended:true
+    extended: true
 }));
 
 app.use(bodyParser.json());
@@ -53,16 +53,26 @@ var Publishable_Key = 'pk_test_51MnHvySBHuevM7gjBSCCPY1G9ejS0qGvUJw1Do0T9nAUyvbe
 
 
 
-app.get("/book", async(req, res) => {
+app.get("/book",auth, async (req, res) => {
+    
     app.use(express.static("../frontend"));
     res.render(path.join(__dirname, "../frontend", "/book.ejs"));
 });
 
 
-app.post('/book', function(req, res){
+
+app.post("/bookme",auth, async (req, res) => {
+    
+    app.use(express.static("../frontend"));
+    res.render(path.join(__dirname, "../frontend", "/book.ejs"));
+});
+
+
+
+app.post('/book',auth, function (req, res) {
     // Moreover you can take more details from user
     // like Address, Name, etc from form
-
+    //console.log("in get");
     stripe.customers.create({
 
         email: req.body.stripeEmail,
@@ -76,21 +86,21 @@ app.post('/book', function(req, res){
             country: 'India',
         }
     })
-    .then((customer) => {
- 
-        return stripe.charges.create({
-            amount: 2500,     // Charging Rs 25
-            description: 'Web Development Product',
-            currency: 'INR',
-            customer: customer.id
+        .then((customer) => {
+
+            return stripe.charges.create({
+                amount: 2500,     // Charging Rs 25
+                description: 'Web Development Product',
+                currency: 'INR',
+                customer: customer.id
+            });
+        })
+        .then((charge) => {
+            res.send("Success")  // If no error occurs
+        })
+        .catch((err) => {
+            res.send(err)       // If some error occurs
         });
-    })
-    .then((charge) => {
-        res.send("Success")  // If no error occurs
-    })
-    .catch((err) => {
-        res.send(err)       // If some error occurs
-    });
 })
 
 
@@ -100,42 +110,42 @@ app.post('/book', function(req, res){
 
 app.get("/", async (req, res) => {
 
-// for checking for user login or not
-fl=0;
+    // for checking for user login or not
+    fl = 0;
 
 
-    try{
-        
-       
-       
-        const token = req.cookies.jwt;   
-        
-        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
-        
+    try {
+
+
+
+        const token = req.cookies.jwt;
+
+        const varifyUser = jwt.verify(token, 'mynameisdeepakduveshbackendwebdeveloper');
+
         //console.log(varifyUser);
-        const user = await register.findOne({_id:varifyUser._id});
+        const user = await register.findOne({ _id: varifyUser._id });
         //console.log("heyyy");
         //console.log(user);
-        fl=1;
+        fl = 1;
 
-    } catch(error){
-        fl=0;
-        
+    } catch (error) {
+        fl = 0;
+
     }
-    
 
 
-    const hotel= await Hotel.find({});
+
+    const hotel = await Hotel.find({});
 
 
 
     // change for search bar
-    const city_data=[];
-    for( i=0;i<hotel.length;i++){
+    const city_data = [];
+    for (i = 0; i < hotel.length; i++) {
         city_data.push(hotel[i].city);
     }
     app.use(express.static("../frontend"));
-    res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,flag:fl});
+    res.render(path.join(__dirname, "../frontend", "/home.ejs"), { hotel: hotel, city_data: city_data, flag: fl });
 
 });
 
@@ -144,82 +154,82 @@ fl=0;
 app.post("/", async (req, res) => {
 
     // for checking for user login or not
-    fl=0;
-    
-    
-        try{
-            
-           
-           
-            const token = req.cookies.jwt;   
-            
-            const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
-            
-            //console.log(varifyUser);
-            const user = await register.findOne({_id:varifyUser._id});
-            //console.log("heyyy");
-            //console.log(user);
-            fl=1;
-    
-        } catch(error){
-            fl=0;
-            
-        }
-        
-    
-    
-        const hotel= await Hotel.find({});
-    
-    
-    
-        // change for search bar
-        const city_data=[];
-        for( i=0;i<hotel.length;i++){
-            city_data.push(hotel[i].city);
-        }
-        app.use(express.static("../frontend"));
-        res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,flag:fl});
-    
-    });
-    
+    fl = 0;
 
 
-app.post("/signin", async function(req, res){
+    try {
+
+
+
+        const token = req.cookies.jwt;
+
+        const varifyUser = jwt.verify(token, 'mynameisdeepakduveshbackendwebdeveloper');
+
+        //console.log(varifyUser);
+        const user = await register.findOne({ _id: varifyUser._id });
+        //console.log("heyyy");
+        //console.log(user);
+        fl = 1;
+
+    } catch (error) {
+        fl = 0;
+
+    }
+
+
+
+    const hotel = await Hotel.find({});
+
+
+
+    // change for search bar
+    const city_data = [];
+    for (i = 0; i < hotel.length; i++) {
+        city_data.push(hotel[i].city);
+    }
+    app.use(express.static("../frontend"));
+    res.render(path.join(__dirname, "../frontend", "/home.ejs"), { hotel: hotel, city_data: city_data, flag: fl });
+
+});
+
+
+
+app.post("/signin", async function (req, res) {
     try {
         // check if the user exists
         const user = await User.findOne({ email: req.body.email });
         if (user) {
-          //check if password matches
-          const result = req.body.psw === user.password;
-// for token    ---->>>>
-          const token = await user.generateAuthToken();
-          //console.log("the token part" + token);
-          res.cookie("jwt", token, {
-              expires: new Date(Date.now() + 10000000),
-              httpOnly: true
-              //secure:true
-          });
+            //check if password matches
+            const result = req.body.psw === user.password;
+            // for token    ---->>>>
+            const token = await user.generateAuthToken();
+            //console.log("the token part" + token);
+            res.cookie("jwt", token, {
+                expires: new Date(Date.now() + 10000000),
+                httpOnly: true
+                //secure:true
+            });
 
-// yaha tak ---->>>>>>
+            // yaha tak ---->>>>>>
 
-          if (result) {
-            //changes are here
-        const hotel= await Hotel.find({});
+            if (result) {
+                //changes are here
+                const hotel = await Hotel.find({});
 
 
-// change for search bar
-const city_data=[];
-for( i=0;i<hotel.length;i++){
-    city_data.push(hotel[i].city);
-}
-    fl=1;
+                // change for search bar
+                const city_data = [];
+                for (i = 0; i < hotel.length; i++) {
+                    city_data.push(hotel[i].city);
+                }
+                fl = 1;
 
-            res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,fl:fl});
-           //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
-          } else {
-           // if password not match
-           return res.json({error: "invalid details !!"});
-         }
+                res.render(path.join(__dirname, "../frontend", "/home.ejs"), { hotel: hotel, city_data: city_data, fl: fl });
+                //res.sendFile(path.join(__dirname,"../frontend", "/home.html"));
+            } else {
+                // if password not match
+                return res.json({ error: "invalid details !!" });
+            }
         } else {
 
 
@@ -227,9 +237,9 @@ for( i=0;i<hotel.length;i++){
             res.sendFile(path.join(__dirname, "../frontend", "/signup.html"));
 
         }
-      } catch (error) {
+    } catch (error) {
         res.status(400).json({ error });
-      }
+    }
 });
 
 // for search page
@@ -238,44 +248,44 @@ for( i=0;i<hotel.length;i++){
 
 
 app.get("/search", async (req, res) => {
-    fl=0;
+    fl = 0;
 
 
-    try{
-        
+    try {
 
-       
-       
-        const token = req.cookies.jwt;   
-        
-        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
-        
+
+
+
+        const token = req.cookies.jwt;
+
+        const varifyUser = jwt.verify(token, 'mynameisdeepakduveshbackendwebdeveloper');
+
         //console.log(varifyUser);
-        const user = await register.findOne({_id:varifyUser._id});
+        const user = await register.findOne({ _id: varifyUser._id });
         //console.log("heyyy");
         //console.log(user);
-        fl=1;
+        fl = 1;
 
-    } catch(error){
-        fl=0;
-        
+    } catch (error) {
+        fl = 0;
+
     }
     app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/search.ejs",{fl:fl}));
+    res.sendFile(path.join(__dirname, "../frontend", "/search.ejs", { fl: fl }));
 });
 
 
-app.post("/search", async function(req, res){
+app.post("/search", async function (req, res) {
 
-    var search_data=req.body.query;
-    const hotel= await Hotel.find({city:search_data});
-       const hotel2=await Hotel.find({});
-// change for search bar 
-const city_data=[];
-for( i=0;i<hotel2.length;i++){
-    city_data.push(hotel2[i].city);
-}
-    res.render(path.join(__dirname,"../frontend", "/search.ejs"),{hotel:hotel,city_data:city_data});
+    var search_data = req.body.query;
+    const hotel = await Hotel.find({ city: search_data });
+    const hotel2 = await Hotel.find({});
+    // change for search bar 
+    const city_data = [];
+    for (i = 0; i < hotel2.length; i++) {
+        city_data.push(hotel2[i].city);
+    }
+    res.render(path.join(__dirname, "../frontend", "/search.ejs"), { hotel: hotel, city_data: city_data });
 
 
 });
@@ -283,32 +293,32 @@ for( i=0;i<hotel2.length;i++){
 
 // for my account
 
-app.post("/myaccount", async function(req, res){
+app.post("/myaccount", async function (req, res) {
     var user;
-    try{
-        
-       
-       
-        const token = req.cookies.jwt;   
-        
-        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
-        
+    try {
+
+
+
+        const token = req.cookies.jwt;
+
+        const varifyUser = jwt.verify(token, 'mynameisdeepakduveshbackendwebdeveloper');
+
         //console.log(varifyUser);
-         user = await register.findOne({_id:varifyUser._id});
+        user = await register.findOne({ _id: varifyUser._id });
         //console.log("heyyy");
         //console.log(typeof(user.email));
         //email=user.email;
         //res.render(path.join(__dirname,"../frontend", "/myaccount.ejs",{email:user.email}));
-        
 
 
-    } catch(error){
+
+    } catch (error) {
         console.log("problem hai");
-        
-    }
-    
 
-    res.render(path.join(__dirname,"../frontend", "/myaccount.ejs"),{user:user});
+    }
+
+
+    res.render(path.join(__dirname, "../frontend", "/myaccount.ejs"), { user: user });
 
 
 
@@ -318,39 +328,39 @@ app.post("/myaccount", async function(req, res){
 
 
 app.get("/hotel", async (req, res) => {
-    fl=0;
+    fl = 0;
 
 
-    try{
-        
-       
-       
-        const token = req.cookies.jwt;   
-        
-        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
-        
+    try {
+
+
+
+        const token = req.cookies.jwt;
+
+        const varifyUser = jwt.verify(token, 'mynameisdeepakduveshbackendwebdeveloper');
+
         //console.log(varifyUser);
-        const user = await register.findOne({_id:varifyUser._id});
+        const user = await register.findOne({ _id: varifyUser._id });
         //console.log("heyyy");
         //console.log(user);
-        fl=1;
+        fl = 1;
 
-    } catch(error){
-        fl=0;
-        
+    } catch (error) {
+        fl = 0;
+
     }
     app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/hotel.ejs",{fl:fl}));
+    res.sendFile(path.join(__dirname, "../frontend", "/hotel.ejs", { fl: fl }));
 });
 
 
 
-app.post("/hotel", async function(req, res){
+app.post("/hotel", async function (req, res) {
 
-    var search_data=req.body.query2;
-    const hotel= await Hotel.findOne({name:search_data});
+    var search_data = req.body.query2;
+    const hotel = await Hotel.findOne({ name: search_data });
 
-    res.render(path.join(__dirname,"../frontend", "/hotel.ejs"),{hotel:hotel});
+    res.render(path.join(__dirname, "../frontend", "/hotel.ejs"), { hotel: hotel });
 
 
 });
@@ -361,9 +371,9 @@ app.use(express.static('../frontend/static'));
 
 
 var storage = multer.diskStorage({
-    destination : "../frontend/static",
-    filename: (req,file,cb) => {
-        cb(null , file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+    destination: "../frontend/static",
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
 
     }
 })
@@ -371,7 +381,7 @@ var storage = multer.diskStorage({
 
 
 var upload = multer({
-    storage:storage
+    storage: storage
 }).single('file');
 
 
@@ -390,43 +400,43 @@ app.get("/signup", (req, res) => {
 
 
 
-app.post('/signup',upload,(req,res)=>{
-    const email=req.body.email;
-    const password=req.body.password;
-    const cpassword=req.body.cpassword;
+app.post('/signup', upload, (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    const cpassword = req.body.cpassword;
     const name = req.body.name;
     const contact = req.body.contact;
     const image = req.file.filename;
 
-    if(!email || !password || !cpassword){
-        
-        return res.json({error: "fill properly!!"});
+    if (!email || !password || !cpassword) {
+
+        return res.json({ error: "fill properly!!" });
 
     }
-    if(password!=cpassword){
-        
-        return res.json({error: "password not match!!"});
+    if (password != cpassword) {
+
+        return res.json({ error: "password not match!!" });
     }
 
 
-    con=String(contact);
-    if(con.length!=10)
-        return res.json({error:"not a valid number"});
+    con = String(contact);
+    if (con.length != 10)
+        return res.json({ error: "not a valid number" });
 
-    User.findOne({email:email,password:password})
-    .then(async (userExist)=>{
-        if(userExist)
-        return res.status(422).json({ error :"email exists already"});
-        
-        const user = new User({name:name,email:email,password:password,contact:contact,image:image});
+    User.findOne({ email: email, password: password })
+        .then(async (userExist) => {
+            if (userExist)
+                return res.status(422).json({ error: "email exists already" });
 
-
-        user.save().then(() => {
-            res.status(201).json({message: "registered !! "});
-        }).catch((err) => res.status(500).json({error: "failed to register !! "}));
+            const user = new User({ name: name, email: email, password: password, contact: contact, image: image });
 
 
-    }).catch(err => {console.log(err); });
+            user.save().then(() => {
+                res.status(201).json({ message: "registered !! " });
+            }).catch((err) => res.status(500).json({ error: "failed to register !! " }));
+
+
+        }).catch(err => { console.log(err); });
 
     //console.log(req.body);
     //res.json({message:req.body});
@@ -449,44 +459,44 @@ app.get("/signuphotel", (req, res) => {
 
 
 
-app.post('/signuphotel',upload,(req,res)=>{
-    const email=req.body.email;
-    const password=req.body.password;
-    const cpassword=req.body.cpassword;
-    const name=req.body.name;
-    const  price=req.body.price;
-    const  city=req.body.city;
-    const address=req.body.address;
-    const  contact=req.body.contact;
-    const  rating=3;
-const image=req.file.filename;
-    if(password!=cpassword){
-        
-        return res.json({error: "password not match!!"});
+app.post('/signuphotel', upload, (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    const cpassword = req.body.cpassword;
+    const name = req.body.name;
+    const price = req.body.price;
+    const city = req.body.city;
+    const address = req.body.address;
+    const contact = req.body.contact;
+    const rating = 3;
+    const image = req.file.filename;
+    if (password != cpassword) {
+
+        return res.json({ error: "password not match!!" });
     }
-    
+
     // checking for correct number
 
-    
-    con=String(contact);
-    if(con.length!=10)
-        return res.json({error: "not a valid number!!"});
-    
+
+    con = String(contact);
+    if (con.length != 10)
+        return res.json({ error: "not a valid number!!" });
 
 
-    Hotel.findOne({email:email,password:password})
-    .then((userExist)=>{
-        if(userExist)
-        return res.status(422).json({ error :"email exists already"});
-        
-        const hotel = new Hotel({email:email,password:password,name:name,price:price,city:city,address:address,contact:contact,rating:rating,image:image});
 
-        hotel.save().then(() => {
-            res.status(201).json({message: "registered !! "});
-        }).catch((err) => res.status(500).json({error: "failed to register !! "}));
+    Hotel.findOne({ email: email, password: password })
+        .then((userExist) => {
+            if (userExist)
+                return res.status(422).json({ error: "email exists already" });
+
+            const hotel = new Hotel({ email: email, password: password, name: name, price: price, city: city, address: address, contact: contact, rating: rating, image: image });
+
+            hotel.save().then(() => {
+                res.status(201).json({ message: "registered !! " });
+            }).catch((err) => res.status(500).json({ error: "failed to register !! " }));
 
 
-    }).catch(err => {console.log(err); });
+        }).catch(err => { console.log(err); });
 
     //console.log(req.body);
     //res.json({message:req.body});
@@ -503,85 +513,81 @@ app.get("/signinhotel", (req, res) => {
 
 
 
-app.post("/signinhotel", async function(req, res){
+app.post("/signinhotel", async function (req, res) {
     try {
         // check if the user exists
         const hotel = await Hotel.findOne({ email: req.body.email });
         if (hotel) {
-          //check if password matches
-         // console.log("mil gya");
-          const result = req.body.psw === hotel.password;
-          if (result) {
-           res.sendFile(path.join(__dirname,"../frontend", "/homehotel.html"));
-          } else {
-            return res.status(422).json({ error :"email password does not match !!!!"});
-         }
+            //check if password matches
+            // console.log("mil gya");
+            const result = req.body.psw === hotel.password;
+            if (result) {
+                res.sendFile(path.join(__dirname, "../frontend", "/homehotel.html"));
+            } else {
+                return res.status(422).json({ error: "email password does not match !!!!" });
+            }
 
         } else {
 
-           // hotel register hi ni to go to register page
-          return res.sendFile(path.join(__dirname,"../frontend", "/signuphotel.html"));
+            // hotel register hi ni to go to register page
+            return res.sendFile(path.join(__dirname, "../frontend", "/signuphotel.html"));
         }
-      } catch (error) {
+    } catch (error) {
         res.status(400).json({ error });
-      }
+    }
 });
 
 
 app.get("/about", async (req, res) => {
 
-    fl=0;
+    fl = 0;
 
 
-    try{
-        
-       
-       
-        const token = req.cookies.jwt;   
-        
-        const varifyUser = jwt.verify(token,'mynameisdeepakduveshbackendwebdeveloper');
-        
+    try {
+
+
+
+        const token = req.cookies.jwt;
+
+        const varifyUser = jwt.verify(token, 'mynameisdeepakduveshbackendwebdeveloper');
+
         //console.log(varifyUser);
-        const user = await register.findOne({_id:varifyUser._id});
+        const user = await register.findOne({ _id: varifyUser._id });
         //console.log("heyyy");
         //console.log(user);
-        fl=1;
+        fl = 1;
 
-    } catch(error){
-        fl=0;
-        
+    } catch (error) {
+        fl = 0;
+
     }
 
     app.use(express.static("../frontend"));
-    res.render(path.join(__dirname, "../frontend", "/about.ejs"),{fl:fl});
+    res.render(path.join(__dirname, "../frontend", "/about.ejs"), { fl: fl });
 });
 
 
-app.get("/book",auth, (req, res) => {
-    app.use(express.static("../frontend"));
-    res.sendFile(path.join(__dirname, "../frontend", "/book.html"));
-});
 
 
 
 ////////////////////////
-app.post("/logout",auth, async function(req, res){
-    try{
+app.post("/logout", auth, async function (req, res) {
+    try {
         res.clearCookie("jwt");
-        fl=0;
-    const hotel= await Hotel.find({});
+        fl = 0;
+        const hotel = await Hotel.find({});
 
 
 
-    // change for search bar
-    const city_data=[];
-    for( i=0;i<hotel.length;i++){
-        city_data.push(hotel[i].city);
-    }
-    app.use(express.static("../frontend"));
-    res.render(path.join(__dirname,"../frontend", "/home.ejs"),{hotel:hotel,city_data:city_data,flag:fl});
-     
-    } catch(error){
+        // change for search bar
+        const city_data = [];
+        for (i = 0; i < hotel.length; i++) {
+            city_data.push(hotel[i].city);
+        }
+        app.use(express.static("../frontend"));
+        res.render(path.join(__dirname, "../frontend", "/home.ejs"), { hotel: hotel, city_data: city_data, flag: fl });
+
+    } catch (error) {
         res.status(500).send(error);
     }
 });
@@ -590,6 +596,7 @@ app.post("/logout",auth, async function(req, res){
 
 
 
+
 app.listen(PORT, () => {
- console.log("Server listening on port " + `${PORT}`);
+    console.log("Server listening on port " + `${PORT}`);
 });

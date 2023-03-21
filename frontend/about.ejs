@@ -29,9 +29,10 @@
     </form>
           <li><a class="activex" href="about">Click me</a></li>
       <li><a href="#">Services</a></li>
-      <li><a class="signup" href="signup.html">Sign up</a></li>
+     
 
       <% if (fl===0) { %>
+        <li><a class="signup" href="signup.html">Sign up</a></li>
         <li><a class="login" id="login" href="signin.html">Login</a></li>
         <%} else { %>
           <form action="/myaccount" method="post">
